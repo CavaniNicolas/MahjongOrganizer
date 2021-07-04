@@ -9,6 +9,11 @@ project(Mahjong
 
 set(MAHJONG_EXE_NAME mahjong)
 
+
+find_package(Qt6 COMPONENTS Core Quick Widgets REQUIRED)
+
+
+
 set(SOURCES
 	main.cpp
 	Room.cpp
@@ -23,7 +28,15 @@ set(HEADERS
 	Player.hpp
 )
 
+qt_add_resources(SOURCES qml.qrc)
+
 add_executable(${MAHJONG_EXE_NAME} ${SOURCES})
+
+target_link_libraries(${MAHJONG_EXE_NAME} PRIVATE
+    Qt6::Core
+    Qt6::Quick
+	Qt6::Widgets
+)
 
 target_include_directories(${MAHJONG_EXE_NAME} PUBLIC
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
