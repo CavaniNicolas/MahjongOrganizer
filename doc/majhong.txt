@@ -1,0 +1,45 @@
+30 joueurs
+
+les gens arrivent on note ceux qui sont presents
+cocher les gens présents
+
+23 personnes 6 tables : 5 tables de 4 et une table de 3
+
+1 toto max
+
+repartition  aleatoire des gens presents
+
+deuxieme tirage, voir un troisieme voir plus (max 6)
+
+pour eux : 
+
+ne pas retomber avec les memes personnes
+
+tables avec 1 debutant et 3 confirmés
+1 debutant par table max
+
+
+dans un premier temps : 
+deux tirages au sorts sans retomber avec les memes personnes
+
+affichage des joueurs a leur table attribuée, ordi branché a un ecran, 
+
+il faut un timer decroissant avec les secondes, nombre de personnes presente. il faut regler la durée. au max 2heures (selectionner entre 1h 1h15 1h30 1h45 2h autre)
+15 minutes avant la fin : "ALLO" et a la fin : "DONGUE"
+
+tableau excel avec le nombre des gens inscrit au club (20 / 30) + des invités
+
+debutant loisir competition
+
+
+
+autres tirages au sorts :
+tirage au sort général
+ou 
+tirage au sort que entre débutant_loisir_compétition / debutant-loisir_competition / debutant_loisir-compétition
+
+
+comptage de points ensuite... pour analyser le niveau des joueurs
+
+
+Nom Prenom Niveau Presence
