@@ -27,8 +27,10 @@ private:
 
 
 public:
+	Player() = default;
 	Player(std::string name, std::string surname, Level level=Level::beginner);
 	Player(json playerJson);
+	Player(Player const & player);
 	~Player();
 
 	std::string getPlayerName() const;
@@ -40,5 +42,5 @@ public:
 
 	json toJson() const;
 
-
+	Player & operator=(Player const & player);
 };

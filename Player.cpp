@@ -30,12 +30,33 @@ Player::Player(std::string name, std::string surname, Level level):
 }
 
 Player::Player(json playerJson):
-	Player::Player(playerJson["name"].get<std::string>(), playerJson["surname"].get<std::string>(), getLevelFromStr(playerJson["level"].get<std::string>()))
+	Player::Player(playerJson["name"].get<std::string>(),
+				   playerJson["surname"].get<std::string>(),
+				   getLevelFromStr(playerJson["level"].get<std::string>()))
+{
+}
+
+Player::Player(Player const & player):
+	Player::Player(player.getName(),
+				   player.getSurname(),
+				   player.getLevel())
 {
 }
 
 Player::~Player()
 {
+}
+
+Player & Player::operator=(Player const & player)
+{
+	// Si on est pas en train de copier un player avec lui meme
+	if (this != &player) {
+		m_name = player.m_name;
+		m_surname = player.m_surname;
+		m_level = player.m_level;
+		m_playerID = player.m_playerID;
+	}
+	return *this;
 }
 
 
