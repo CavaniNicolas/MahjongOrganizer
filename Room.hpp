@@ -7,8 +7,11 @@
 class Room
 {
 private:
-	/* data */
+	std::vector<std::unique_ptr<Table>> m_tables;
+
 public:
-	Room(std::unique_ptr<Table> tables);
+	Room(std::unique_ptr<Table> tables=nullptr);
 	~Room();
+
+	void determineNumberTables(int& nbTableOf4, int& nbTableOf3, int nbOfPlayers);
 };
