@@ -1,9 +1,8 @@
-import QtQuick 2.2
 import QtQuick.Controls 2
 import QtQuick.Controls.Material 2
 import QtQuick.Layouts 1
 import QtQuick.Window 2
-import QtQuick 2.0
+import QtQuick 2.15
 
 ApplicationWindow {
     id: window
@@ -22,20 +21,27 @@ ApplicationWindow {
         radius: 10
     }
 
-    ListView {
+
+    Rectangle {
         width: 180; height: 200
 
-        model: ContactModel {}
-        delegate: Text {
-            text: name + ": " + number
+        Component {
+            id: contactDelegate
+            Item {
+                width: 180; height: 40
+                Column {
+                    Text { text: '<b>Name:</b> ' + name }
+                    Text { text: '<b>Number:</b> ' + number }
+                }
+            }
+        }
+
+        ListView {
+            anchors.fill: parent
+            model: ContactModel {}
+            delegate: contactDelegate
+            highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+            focus: true
         }
     }
-
-//    ListView {
-//        anchors.fill: parent
-//        model: ContactModel {}
-//        delegate: ContactDelegate {}
-//        highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
-//        focus: true
-//    }
 }
