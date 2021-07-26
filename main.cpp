@@ -65,6 +65,7 @@ int main(int argc, char const *argv[])
     int nbtableof3;
 
     room.determineNumberTables(nbtableof4, nbtableof3, nbplayers);
+    room.createTables();
 
     std::cout << nbtableof4 << " " << nbtableof3 << " " << std::endl;
 	return 0;

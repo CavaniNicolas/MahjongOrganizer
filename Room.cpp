@@ -1,8 +1,12 @@
 
 #include <memory>
-#include "Room.hpp"
+#include <vector>
+#include <iostream>
 
-Room::Room(std::unique_ptr<Table> tables)
+#include "Room.hpp"
+#include "Player.hpp"
+
+Room::Room(Table tables)
 {
 }
 
@@ -30,3 +34,15 @@ void Room::determineNumberTables(int& nbTableOf4, int& nbTableOf3, int nbOfPlaye
 }
 
 
+void Room::createTables()
+{
+	std::array<Player, 4> players = {Player("un", "un", Level::competitive), Player("un", "un", Level::competitive), Player("un", "un", Level::competitive), Player("un", "un", Level::competitive)};
+
+	Table table(players);
+	m_tables.push_back(table);
+
+	for (int i=0; i<4; i++)
+	{
+		std::cout << m_tables.at(0).getPlayers().at(i).getName() << std::endl;
+	}
+}

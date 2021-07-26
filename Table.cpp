@@ -1,10 +1,16 @@
 
 #include "Table.hpp"
 
-Table::Table(Player players[4])
+Table::Table(std::array<Player, 4> players):
+	m_players(players)
 {
 }
 
 Table::~Table()
 {
+}
+
+std::array<Player, 4> Table::getPlayers()
+{
+	return m_players;
 }

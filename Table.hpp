@@ -6,9 +6,11 @@
 class Table
 {
 private:
-	std::array<std::unique_ptr<Player>, 4> m_players;
+	std::array<Player, 4> m_players;
 
 public:
-	Table(Player[4]);
+	Table(std::array<Player, 4>);
 	~Table();
+
+	std::array<Player, 4> getPlayers();
 };
