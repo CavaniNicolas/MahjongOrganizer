@@ -12,5 +12,5 @@ public:
 	Table(std::array<Player, 4>);
 	~Table();
 
-	std::array<Player, 4> getPlayers();
+	std::array<Player, 4> getPlayers() const;
 };

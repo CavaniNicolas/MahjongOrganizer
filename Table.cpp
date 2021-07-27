@@ -10,7 +10,7 @@ Table::~Table()
 {
 }
 
-std::array<Player, 4> Table::getPlayers()
+std::array<Player, 4> Table::getPlayers() const
 {
 	return m_players;
 }

@@ -3,13 +3,13 @@
 #include <string>
 
 #include <json.hpp>
-using json = nlohmann::json;
 
 #include "Player.hpp"
 #include "Room.hpp"
 
 int main(int argc, char const *argv[])
 {
+    using json = nlohmann::json;
 
 	// Player jojo("jojo", "dubois", Level::competitive);
 

@@ -29,7 +29,7 @@ Player::Player(std::string name, std::string surname, Level level):
 	m_playerID = m_playerNum;
 }
 
-Player::Player(json playerJson):
+Player::Player(nlohmann::json playerJson):
 	Player::Player(playerJson["name"].get<std::string>(),
 				   playerJson["surname"].get<std::string>(),
 				   getLevelFromStr(playerJson["level"].get<std::string>()))
@@ -93,9 +93,9 @@ int Player::getID() const
 	return m_playerID;
 }
 
-json Player::toJson() const
+nlohmann::json Player::toJson() const
 {
-	json playerJson = {
+	nlohmann::json playerJson = {
 		{"name", m_name},
 		{"surname", m_surname},
 		{"level", level_str[m_level]},

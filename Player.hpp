@@ -3,11 +3,10 @@
 
 #include <string>
 #include <json.hpp>
-using json = nlohmann::json;
 
-typedef enum Level {
+enum class Level {
 	beginner, leisure, competitive
-} Level;
+};
 
 static const char *level_str[] = {"beginner", "leisure", "competitive"};
 
@@ -29,7 +28,7 @@ private:
 public:
 	Player() = default;
 	Player(std::string name, std::string surname, Level level=Level::beginner);
-	Player(json playerJson);
+	Player(nlohmann::json playerJson);
 	Player(Player const & player);
 	~Player();
 
@@ -40,7 +39,7 @@ public:
 	std::string getLevel_str() const;
 	int getID() const;
 
-	json toJson() const;
+	nlohmann::json toJson() const;
 
 	Player & operator=(Player const & player);
 };
