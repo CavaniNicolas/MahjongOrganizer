@@ -21,7 +21,7 @@ private:
 	Level m_level;
 	int m_playerID;
 
-	std::array<std::unique_ptr<Player>, 3> m_havePlayedWithPlayers;
+	// std::array<Player, 3> m_havePlayedWithPlayers;
 
 
 public:
