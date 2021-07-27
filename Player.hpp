@@ -8,8 +8,7 @@ enum class Level {
 	beginner, leisure, competitive
 };
 
-static const char *level_str[] = {"beginner", "leisure", "competitive"};
-
+std::string getStringFromLevel(Level level);
 Level getLevelFromStr(std::string level);
 
 class Player

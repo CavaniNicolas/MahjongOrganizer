@@ -5,6 +5,15 @@
 
 int Player::m_playerNum = 0;
 
+std::string getStringFromLevel(Level level)
+{
+	if (level == Level::beginner)
+		return "beginner";
+	if (level == Level::leisure)
+		return "leisure";
+	if (level == Level::competitive)
+		return "competitive"; 
+}
 
 Level getLevelFromStr(std::string level)
 {
@@ -85,7 +94,7 @@ Level Player::getLevel() const
 
 std::string Player::getLevel_str() const
 {
-	return level_str[m_level];
+	return getStringFromLevel(m_level);
 }
 
 int Player::getID() const
@@ -98,7 +107,7 @@ nlohmann::json Player::toJson() const
 	nlohmann::json playerJson = {
 		{"name", m_name},
 		{"surname", m_surname},
-		{"level", level_str[m_level]},
+		{"level", getStringFromLevel(m_level)},
 		{"id", m_playerID}
 	};
 	return playerJson;
