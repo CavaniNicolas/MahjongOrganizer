@@ -58,15 +58,18 @@ int main(int argc, char const *argv[])
 	// players.at(11) = Player("toto2", "toto2", Level::competitive);
 
 
-    Room room;
+    Room room(4);
 
-    int nbplayers = 12;
-    int nbtableof4;
-    int nbtableof3;
+    std::cout << room.getNbTableOf4() << " " << room.getNbTableOf3() << " " << std::endl;
+    std::cout << getStringFromLevel(Level::beginner) << getStringFromLevel(Level::leisure) << getStringFromLevel(Level::competitive) << std::endl;
+    
 
-    room.determineNumberTables(nbtableof4, nbtableof3, nbplayers);
-    room.createTables();
+    std::array<Player, 4> table = {Player("un", "un", Level::competitive), Player("un", "un", Level::competitive), Player("trois", "un", Level::competitive), Player("un", "un", Level::competitive)};
+    // Table table1 = Table(Player("un", "un", Level::competitive), Player("un", "un", Level::competitive), Player("un", "un", Level::competitive), Player("un", "un", Level::competitive));
+    Table table1 = Table(table);
 
-    std::cout << nbtableof4 << " " << nbtableof3 << " " << std::endl;
+    room.addTable(table1);
+
+    room.displayTables();
 	return 0;
 }

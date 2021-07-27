@@ -6,43 +6,47 @@
 #include "Room.hpp"
 #include "Player.hpp"
 
-Room::Room(Table tables)
+Room::Room(int nbOfPlayers):
+	m_nbOfPlayers(nbOfPlayers)
 {
+	determineNumberTables();
 }
 
-Room::~Room()
+void Room::determineNumberTables()
 {
-}
-
-void Room::determineNumberTables(int& nbTableOf4, int& nbTableOf3, int nbOfPlayers)
-{
-	int playersLeft = nbOfPlayers % 4;
-	nbTableOf4 = nbOfPlayers / 4;
+	int playersLeft = m_nbOfPlayers % 4;
+	m_nbTableOf4 = m_nbOfPlayers / 4;
 	
 	if (playersLeft == 0) {
-		nbTableOf3 = 0;	
+		m_nbTableOf3 = 0;	
 	} else if (playersLeft == 3)	{
-		nbTableOf3 = 1;
+		m_nbTableOf3 = 1;
 	} else if (playersLeft == 2) {
-		nbTableOf4 -= 1;
-		nbTableOf3 = 2;
+		m_nbTableOf4 -= 1;
+		m_nbTableOf3 = 2;
 	} else { // if (playersLeft == 1)
-		nbTableOf4 -= 2;
-		nbTableOf3 = 3;
+		m_nbTableOf4 -= 2;
+		m_nbTableOf3 = 3;
 	}	
 
 }
 
-
-void Room::createTables()
+void Room::addTable(Table table) 
 {
-	std::array<Player, 4> players = {Player("un", "un", Level::competitive), Player("un", "un", Level::competitive), Player("un", "un", Level::competitive), Player("un", "un", Level::competitive)};
-
-	Table table(players);
 	m_tables.push_back(table);
+}
 
-	for (int i=0; i<4; i++)
+void Room::displayTables() const
+{
+	for (int i=0; i<(m_nbTableOf4 + m_nbTableOf3); i++)
 	{
-		std::cout << m_tables.at(0).getPlayers().at(i).getName() << std::endl;
+		for (int j=0; j<4; j++)
+		{
+			std::cout << m_tables.at(i).getPlayers().at(j).getName();
+			if (j < 3) {
+				std::cout << " -- ";
+			}
+		}
+		std::cout << std::endl;
 	}
 }

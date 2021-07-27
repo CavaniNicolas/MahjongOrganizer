@@ -7,13 +7,22 @@
 class Room
 {
 private:
+	int m_nbOfPlayers;
+
+	int m_nbTableOf4;
+	int m_nbTableOf3;
+
 	std::vector<Table> m_tables;
 
 public:
-	Room() = default;
-	Room(Table tables); // =nullptr
-	~Room();
+	Room(int nbOfPlayers);
+	~Room()=default;
 
-	void determineNumberTables(int& nbTableOf4, int& nbTableOf3, int nbOfPlayers);
-	void createTables();
+	void determineNumberTables();
+	void addTable(Table table);
+
+	int getNbTableOf4() const {return m_nbTableOf4;};
+	int getNbTableOf3() const {return m_nbTableOf3;};
+
+	void displayTables() const;
 };
