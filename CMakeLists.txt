@@ -14,6 +14,7 @@ set(SOURCES
 	Room.cpp
 	Table.cpp
 	Player.cpp
+	PlayerParser.cpp
 )
 
 set(HEADERS
@@ -21,6 +22,7 @@ set(HEADERS
 	Room.hpp
 	Table.hpp
 	Player.hpp
+	PlayerParser.cpp
 )
 
 add_executable(${MAHJONG_EXE_NAME} ${SOURCES})

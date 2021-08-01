@@ -6,33 +6,7 @@
 
 #include "Player.hpp"
 #include "Room.hpp"
-#include <fstream>
-#include <sstream>
-
-std::string readFile()
-{
-    std::stringstream str;
-    std::ifstream stream("people.txt");
-    if(stream.is_open())
-    {
-        while(stream.peek() != EOF)
-        {
-            str << stream.get();
-        }
-        stream.close();
-        return str.str();
-    }
-}
-
-std::string readFileIntoString(const std::string& path) {
-    std::ifstream input_file(path);
-    if (!input_file.is_open()) {
-        std::cerr << "Could not open the file - '"
-             << path << "'" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    return std::string((std::istreambuf_iterator<char>(input_file)), std::istreambuf_iterator<char>());
-}
+#include "PlayerParser.hpp"
 
 int main(int argc, char const *argv[])
 {
@@ -99,45 +73,8 @@ int main(int argc, char const *argv[])
 
     room.displayTables();
 
-//     std::string people;
-//     std::ifstream people_file("people.json");
-//     // people_file >> people;
+    PlayerParser pp("bonjour.txt");
 
-// std::stringstream buffer;
-// buffer << people_file.rdbuf();
-
-//     std::cout<<buffer.str(); //This will print the entire json object.
-
-
-
-    // std::ifstream inFile;
-    // inFile.open("people.json"); //open the input file
-
-    // std::stringstream strStream;
-    // strStream << inFile.rdbuf(); //read the file
-    // std::string str = strStream.str(); //str holds the content of the file
-
-    // std::cout << str << "\n"; //you can do anything with the string!!!
-
-
-
-//     std::cout << readFile() << std::endl;
-
-
-
-//     std::string bonjour = "salut !\
-// je mappelle\n\r\
-// nicolasyes";
-//     std::cout << bonjour << std::endl;
-
-
-
-
-    std::string filename("people.txt");
-    std::string file_contents;
-
-    file_contents = readFileIntoString(filename);
-    std::cout << file_contents << std::endl;
 
 
 	return 0;
