@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>components/main.qml</file>
+        <file>components/ContactModel.qml</file>
+        <file>components/ContactDelegate.qml</file>
+    </qresource>
+</RCC>

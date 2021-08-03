@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/components/main.qml")));
     if (engine.rootObjects().isEmpty()) {
         return -1;
     }
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 
     room.displayTables();
 
-    PlayerParser pp("mahjong.txt");
+    PlayerParser pp("mahjong.json");
     pp.readPlayersFromFile();
     pp.writePlayersInFile(players.at(0).toJson());
 

@@ -1,6 +1,4 @@
 
-qt5_add_resources(SOURCES qml.qrc)
-
 set(MAHJONG_EXE_NAME mahjong)
 
 set(SOURCES
@@ -18,6 +16,9 @@ set(HEADERS
 	mahjong/Room.hpp
 	mahjong/Table.hpp
 )
+
+
+qt5_add_resources(SOURCES qml.qrc)
 
 add_executable(${MAHJONG_EXE_NAME} ${SOURCES})
 
