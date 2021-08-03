@@ -2,6 +2,7 @@
 #pragma once
 
 #include <iostream>
+#include "Player.hpp"
 
 class PlayerParser
 {
@@ -12,6 +13,6 @@ public:
 	PlayerParser(std::string const filename);
 	~PlayerParser()=default;
 
-	void writePlayerInFile();
-	void readPlayerFromFile();
+	Player readPlayerFromFile();
+	void writePlayerInFile(Player player);
 };

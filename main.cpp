@@ -73,8 +73,10 @@ int main(int argc, char const *argv[])
 
     room.displayTables();
 
-    PlayerParser pp("bonjour.txt");
-
+    PlayerParser pp("mahjong.txt");
+    pp.readPlayerFromFile();
+    pp.writePlayerInFile(players.at(0));
+    pp.writePlayerInFile(players.at(6));
 
 
 	return 0;
