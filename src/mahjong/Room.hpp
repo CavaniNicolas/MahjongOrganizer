@@ -2,7 +2,7 @@
 #pragma once
 
 #include <memory>
-#include "Table.hpp"
+#include "mahjong/Table.hpp"
 
 class Room
 {

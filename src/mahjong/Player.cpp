@@ -1,7 +1,7 @@
 
 #include <sstream>
 
-#include "Player.hpp"
+#include "mahjong/Player.hpp"
 
 int Player::m_playerNum = 0;
 

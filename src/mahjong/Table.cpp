@@ -1,5 +1,5 @@
 
-#include "Table.hpp"
+#include "mahjong/Table.hpp"
 
 Table::Table(std::array<Player, 4> players):
 	m_players(players)

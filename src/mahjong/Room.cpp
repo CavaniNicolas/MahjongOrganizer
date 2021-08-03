@@ -3,8 +3,8 @@
 #include <vector>
 #include <iostream>
 
-#include "Room.hpp"
-#include "Player.hpp"
+#include "mahjong/Room.hpp"
+#include "mahjong/Player.hpp"
 
 Room::Room(int nbOfPlayers):
 	m_nbOfPlayers(nbOfPlayers)

@@ -6,28 +6,4 @@ project(Mahjong
 	LANGUAGES CXX
 )
 
-
-set(MAHJONG_EXE_NAME mahjong)
-
-set(SOURCES
-	main.cpp
-	Room.cpp
-	Table.cpp
-	Player.cpp
-	PlayerParser.cpp
-)
-
-set(HEADERS
-	json.hpp
-	Room.hpp
-	Table.hpp
-	Player.hpp
-	PlayerParser.cpp
-)
-
-add_executable(${MAHJONG_EXE_NAME} ${SOURCES})
-
-target_include_directories(${MAHJONG_EXE_NAME} PUBLIC
-	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-)
-
+add_subdirectory(src)

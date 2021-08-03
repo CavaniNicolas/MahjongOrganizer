@@ -2,9 +2,9 @@
 #include <fstream>
 #include <iostream>
 
-#include "json.hpp"
-#include "PlayerParser.hpp"
-#include "Player.hpp"
+#include "mahjong/json.hpp"
+#include "mahjong/PlayerParser.hpp"
+#include "mahjong/Player.hpp"
 
 PlayerParser::PlayerParser(std::string const filename):
 	m_filename(filename)

@@ -2,7 +2,7 @@
 #pragma once
 
 #include <string>
-#include <json.hpp>
+#include <mahjong/json.hpp>
 
 enum class Level {
 	beginner, leisure, competitive

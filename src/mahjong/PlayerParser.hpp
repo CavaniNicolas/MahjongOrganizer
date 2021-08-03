@@ -2,7 +2,7 @@
 #pragma once
 
 #include <iostream>
-#include "Player.hpp"
+#include "mahjong/Player.hpp"
 
 class PlayerParser
 {
