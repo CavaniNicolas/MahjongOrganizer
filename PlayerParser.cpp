@@ -12,21 +12,20 @@ PlayerParser::PlayerParser(std::string const filename):
 }
 
 
-Player PlayerParser::readPlayerFromFile()
+nlohmann::json PlayerParser::readPlayersFromFile()
 {
     using json = nlohmann::json;
-    json playerJson;
+    json players;
 
     std::ifstream file(m_filename);
-    file >> playerJson;
+    file >> players;
 
-    return Player(playerJson);
+    return players;
 }
 
-void PlayerParser::writePlayerInFile(Player player)
+void PlayerParser::writePlayersInFile(nlohmann::json players)
 {
-    using json = nlohmann::json;
     std::ofstream file(m_filename);
 
-    file << player.toJson().dump(4) << std::endl;
+    file << players.dump(4) << std::endl;
 }

@@ -13,6 +13,6 @@ public:
 	PlayerParser(std::string const filename);
 	~PlayerParser()=default;
 
-	Player readPlayerFromFile();
-	void writePlayerInFile(Player player);
+	nlohmann::json readPlayersFromFile();
+	void writePlayersInFile(nlohmann::json players);
 };
