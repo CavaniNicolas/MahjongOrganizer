@@ -1,14 +1,14 @@
 
+#pragma once
+
 #include <string>
-#include <json.hpp>
-using json = nlohmann::json;
+#include <mahjong/json.hpp>
 
-typedef enum Level {
+enum class Level {
 	beginner, leisure, competitive
-} Level;
+};
 
-static const char *level_str[] = {"beginner", "leisure", "competitive"};
-
+std::string getStringFromLevel(Level level);
 Level getLevelFromStr(std::string level);
 
 class Player
@@ -21,12 +21,14 @@ private:
 	Level m_level;
 	int m_playerID;
 
-	std::array<std::unique_ptr<Player>, 3> m_havePlayedWithPlayers;
+	// std::array<Player, 3> m_havePlayedWithPlayers;
 
 
 public:
+	Player() = default;
 	Player(std::string name, std::string surname, Level level=Level::beginner);
-	Player(json playerJson);
+	Player(nlohmann::json playerJson);
+	Player(Player const & player);
 	~Player();
 
 	std::string getPlayerName() const;
@@ -36,7 +38,7 @@ public:
 	std::string getLevel_str() const;
 	int getID() const;
 
-	json toJson() const;
+	nlohmann::json toJson() const;
 
-
+	Player & operator=(Player const & player);
 };
