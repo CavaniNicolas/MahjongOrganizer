@@ -6,6 +6,6 @@ project(Mahjong
 	LANGUAGES CXX
 )
 
-find_package(Qt5 COMPONENTS Core Quick Widgets REQUIRED)
+include(cmake/MahjongHelper.cmake)
 
 add_subdirectory(src)
