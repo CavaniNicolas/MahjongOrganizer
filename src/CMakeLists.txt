@@ -27,6 +27,7 @@ set(MAHJONG_QT_PACKAGES
     QmlWorkerScript
     QuickControls2
     QuickTemplates2
+    QmlModels
 )
 
 find_package(Qt5 COMPONENTS ${MAHJONG_QT_PACKAGES} REQUIRED)
@@ -77,7 +78,7 @@ set(MAHJONG_QT_QML_DEPS
 #    QtMultimedia
 #    QtQml
    QtQuick
-#    QtQuick.2
+    QtQuick.2
 )
 
 list(TRANSFORM MAHJONG_QT_QML_DEPS PREPEND ${QT_QML_DIR})
