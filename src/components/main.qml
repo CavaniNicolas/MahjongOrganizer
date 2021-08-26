@@ -1,8 +1,5 @@
 import QtQuick.Controls 2
-import QtQuick.Controls.Material 2
-import QtQuick.Layouts 1
-import QtQuick.Window 2
-import QtQuick 2.15
+import QtQuick 2.12
 
 ApplicationWindow {
     id: window
