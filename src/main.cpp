@@ -35,10 +35,11 @@ int main(int argc, char *argv[])
 	players.at(6) = Player("sept", "sept", Level::competitive);
 	players.at(7) = Player("huit", "huit", Level::competitive);
 
-    Room room(4);
+    PlayerParser pp("mahjong.json");
 
-    std::cout << room.getNbTableOf4() << " " << room.getNbTableOf3() << " " << std::endl;
-    std::cout << getStringFromLevel(Level::beginner) << getStringFromLevel(Level::leisure) << getStringFromLevel(Level::competitive) << std::endl;
+
+    Room room(pp.readPlayersFromFile());
+    room.displayAllPlayers();
     
 
     std::array<Player, 4> table = {Player("un", "un", Level::competitive), Player("un", "un", Level::competitive), Player("trois", "un", Level::competitive), Player("un", "un", Level::competitive)};
@@ -47,11 +48,11 @@ int main(int argc, char *argv[])
 
     room.addTable(table1);
 
-    room.displayTables();
+//    room.displayTables();
 
-    PlayerParser pp("mahjong.json");
-    pp.readPlayersFromFile();
-    pp.writePlayersInFile(players.at(0).toJson());
+
+    pp.writePlayersInFile(room.getPlayersJson());
+
 
     return app.exec();
 }

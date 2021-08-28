@@ -13,6 +13,7 @@ std::string getStringFromLevel(Level level)
 		return "leisure";
 	if (level == Level::competitive)
 		return "competitive"; 
+    return "competitive";
 }
 
 Level getLevelFromStr(std::string level)
@@ -108,7 +109,7 @@ nlohmann::json Player::toJson() const
 		{"name", m_name},
 		{"surname", m_surname},
 		{"level", getStringFromLevel(m_level)},
-		{"id", m_playerID}
-	};
+//		{"id", m_playerID}
+    };
 	return playerJson;
 }
