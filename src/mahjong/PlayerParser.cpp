@@ -18,7 +18,13 @@ nlohmann::json PlayerParser::readPlayersFromFile()
     json players;
 
     std::ifstream file(m_filename);
-    file >> players;
+
+    if (file.is_open()) {
+        file >> players;
+        std::cout << "Using file : '" << m_filename << "' to load players" << std::endl;
+    } else {
+        std::cout << "The file : '" << m_filename << "' does not exist" << std::endl;
+    }
 
     return players;
 }
@@ -27,5 +33,7 @@ void PlayerParser::writePlayersInFile(nlohmann::json players)
 {
     std::ofstream file(m_filename);
 
-    file << players.dump(4) << std::endl;
+    if (file.is_open()) {
+        file << players.dump(4) << std::endl;
+    }
 }
