@@ -25,11 +25,11 @@ private:
 
 
 public:
-	Player() = default;
-	Player(std::string name, std::string surname, Level level=Level::beginner);
+    Player(std::string name, std::string surname, Level level=Level::beginner);
+    Player();
 	Player(nlohmann::json playerJson);
 	Player(Player const & player);
-	~Player();
+    ~Player()=default;
 
 	std::string getPlayerName() const;
 	std::string getName() const;

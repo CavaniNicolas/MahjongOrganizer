@@ -29,7 +29,6 @@ Level getLevelFromStr(std::string level)
 }
 
 
-
 Player::Player(std::string name, std::string surname, Level level):
 	m_name(name),
 	m_surname(surname),
@@ -38,6 +37,13 @@ Player::Player(std::string name, std::string surname, Level level):
 	m_playerNum++;
 	m_playerID = m_playerNum;
 }
+
+
+Player::Player():
+    Player::Player("Toto", "Toto", Level::beginner)
+{
+}
+
 
 Player::Player(nlohmann::json playerJson):
 	Player::Player(playerJson["name"].get<std::string>(),
@@ -53,9 +59,6 @@ Player::Player(Player const & player):
 {
 }
 
-Player::~Player()
-{
-}
 
 Player & Player::operator=(Player const & player)
 {
