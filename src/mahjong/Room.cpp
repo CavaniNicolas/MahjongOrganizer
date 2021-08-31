@@ -77,3 +77,8 @@ nlohmann::json Room::getPlayersJson() const
     return players;
 }
 
+
+void Room::addNewPlayer(Player player)
+{
+    m_players.push_back(player);
+}
