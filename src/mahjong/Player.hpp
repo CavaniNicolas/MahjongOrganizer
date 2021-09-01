@@ -21,9 +21,6 @@ private:
 	Level m_level;
 	int m_playerID;
 
-	// std::array<Player, 3> m_havePlayedWithPlayers;
-
-
 public:
     Player(std::string name, std::string surname, Level level=Level::beginner);
     Player();
