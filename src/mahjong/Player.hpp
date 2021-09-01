@@ -38,7 +38,8 @@ public:
 	std::string getLevel_str() const;
 	int getID() const;
 
-	nlohmann::json toJson() const;
+    nlohmann::json toJson() const;
+    nlohmann::json toJsonFull() const;
 
 	Player & operator=(Player const & player);
 };
