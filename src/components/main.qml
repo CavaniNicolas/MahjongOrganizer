@@ -1,47 +1,133 @@
 import QtQuick.Controls 2
-import QtQuick.Controls.Material 2
-import QtQuick.Layouts 1
-import QtQuick.Window 2
-import QtQuick 2.15
+import QtQuick 2.12
 
 ApplicationWindow {
     id: window
-    width: 400
-    height: 500
+    width: 1200
+    height: 900
     visible: true
+    title: "Mahjong Table Arranger"
 
-    Rectangle {
-        x: 100
-        y: 100
-        width: 100
-        height: 100
-        color: "yellow"
-        border.color: "black"
-        border.width: 5
-        radius: 10
-    }
+    // Non resizable
+    maximumWidth: width
+    maximumHeight: height
+    minimumWidth: width
+    minimumHeight: height
 
 
-    Rectangle {
-        width: 180; height: 200
+    Row {
+        id: rowMain
+        anchors.fill: parent
 
-        Component {
-            id: contactDelegate
-            Item {
-                width: 180; height: 40
-                Column {
-                    Text { text: '<b>Name:</b> ' + name }
-                    Text { text: '<b>Number:</b> ' + number }
+        Column {
+            id: columnLeft
+            anchors.left: rowMain.left
+            width: rowMain.width * 2 / 3
+            height: rowMain.height
+
+            ListView {
+                id: listView
+                width: parent.width * 9 / 10
+                height: parent.height * 9 / 10
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                delegate: Item {
+                    x: 5
+                    width: 80
+                    height: 50
+                    Row {
+                        id: listRow
+                        spacing: 10
+                        Rectangle {
+                            width: 40
+                            height: 40
+                            color: colorCode
+                        }
+
+                        Text {
+                            text: name
+                            anchors.verticalCenter: parent.verticalCenter
+                            font.bold: true
+                        }
+
+                        CheckBox {
+                            id: checkBox
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: qsTr("Check Box")
+                        }
+                    }
+                }
+                model: ListModel {
+                    ListElement {
+                        name: "Grey"
+                        colorCode: "grey"
+                    }
+
+                    ListElement {
+                        name: "Red"
+                        colorCode: "red"
+                    }
+
+                    ListElement {
+                        name: "Blue"
+                        colorCode: "blue"
+                    }
+
+                    ListElement {
+                        name: "Green"
+                        colorCode: "green"
+                    }
                 }
             }
         }
 
-        ListView {
-            anchors.fill: parent
-            model: ContactModel {}
-            delegate: contactDelegate
-            highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
-            focus: true
+        Column {
+            id: columnRight
+            anchors.left: columnLeft.right
+            anchors.right: rowMain.right
+            height: rowMain.height
+
+            Column {
+                id: columnRightTop
+                width: parent.width
+                height: parent.height / 2
+                topPadding: 50
+                spacing: 50
+
+                ComboBox {
+                    id: comboBox
+                    width: parent.width * 2 / 3
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    model: [ "1h", "1h30", "2h" ]
+                }
+
+                ComboBox {
+                    id: comboBox1
+                    width: parent.width * 2 / 3
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    model: [ "all together", "3 level groups", "beginner + leisure", "leisure + competitive" ]
+                }
+            }
+
+            Column {
+                id: columnRightBot
+                width: parent.width
+                anchors.top: columnRightTop.bottom
+                anchors.bottom: parent.bottom
+
+                topPadding: 50
+                spacing: 50
+
+                Button {
+                    id: button
+                    width: parent.width * 2 / 3
+                    text: qsTr("Arrange tables")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+            }
         }
     }
+
 }
