@@ -81,4 +81,19 @@ nlohmann::json Room::getPlayersJson() const
 void Room::addNewPlayer(Player player)
 {
     m_players.push_back(player);
+    m_nbOfPlayers++;
+    determineNumberTables();
+}
+
+void Room::removePlayerFromId(int id)
+{
+    if (id >= m_players.size()) {
+        std::cout << "throw out of bound exception" << std::endl;
+    }
+    else {
+        std::cout << m_players.size() << std::endl;
+        m_players.erase(m_players.begin() + id);
+        m_nbOfPlayers--;
+        determineNumberTables();
+    }
 }

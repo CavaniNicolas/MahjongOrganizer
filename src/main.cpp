@@ -23,18 +23,6 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-
-    std::array<Player, 8> players;
-
-    players.at(0) = Player("un", "un", Level::competitive);
-	players.at(1) = Player("deux", "deux", Level::competitive);
-	players.at(2) = Player("trois", "trois", Level::competitive);
-	players.at(3) = Player("quatre", "quatre", Level::competitive);
-	players.at(4) = Player("cinq", "cinq", Level::competitive);
-	players.at(5) = Player("six", "six", Level::competitive);
-	players.at(6) = Player("sept", "sept", Level::competitive);
-	players.at(7) = Player("huit", "huit", Level::competitive);
-
     PlayerParser pp("mahjong.json");
 
 
@@ -42,13 +30,21 @@ int main(int argc, char *argv[])
     room.displayAllPlayers();
     
 
-    std::array<Player, 4> table = {Player("un", "un", Level::competitive), Player("un", "un", Level::competitive), Player("trois", "un", Level::competitive), Player("un", "un", Level::competitive)};
-    // Table table1 = Table(Player("un", "un", Level::competitive), Player("un", "un", Level::competitive), Player("un", "un", Level::competitive), Player("un", "un", Level::competitive));
-    Table table1 = Table(table);
+//    std::array<Player, 4> table = {Player("un", "un", Level::competitive), Player("un", "un", Level::competitive), Player("trois", "un", Level::competitive), Player("un", "un", Level::competitive)};
+//    // Table table1 = Table(Player("un", "un", Level::competitive), Player("un", "un", Level::competitive), Player("un", "un", Level::competitive), Player("un", "un", Level::competitive));
+//    Table table1 = Table(table);
 
-    room.addTable(table1);
+//    room.addTable(table1);
 
 //    room.displayTables();
+
+
+    room.addNewPlayer(Player("neuf", "neuf", Level::competitive));
+
+    room.removePlayerFromId(room.getNbOfPlayers()-1);
+
+    room.displayAllPlayers();
+    std::cout << room.getNbOfPlayers() << std::endl;
 
 
     pp.writePlayersInFile(room.getPlayersJson());

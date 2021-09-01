@@ -34,5 +34,5 @@ public:
     nlohmann::json getPlayersJson() const;
 
     void addNewPlayer(Player player);
-
+    void removePlayerFromId(int id);
 };
