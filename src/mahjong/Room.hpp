@@ -20,23 +20,20 @@ public:
 	~Room()=default;
 
     void createPlayersFromJson(nlohmann::json players);
-
 	void determineNumberTables();
-	void addTable(Table table);
 
+    void addNewPlayer(Player player);
+    std::vector<Player>::iterator searchPlayerFromId(int id);
+    void removePlayerFromId(int id);
+    void removePlayerFromIndex(int id);
+
+    void displayAllPlayers() const;
+
+    nlohmann::json getPlayersJson() const;
     int getNbOfPlayers() const {return m_nbOfPlayers;}
     int getNbTableOf4() const {return m_nbTableOf4;};
 	int getNbTableOf3() const {return m_nbTableOf3;};
 
-    void displayAllPlayers() const;
-	void displayTables() const;
-
-    nlohmann::json getPlayersJson() const;
-
-    void addNewPlayer(Player player);
-    void removePlayerFromIndex(int id);
-    void removePlayerFromId(int id);
-
-    std::vector<Player>::iterator searchPlayerFromId(int id);
-
+    void addTable(Table table);
+    void displayTables() const;
 };
