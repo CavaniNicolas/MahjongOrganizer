@@ -34,5 +34,9 @@ public:
     nlohmann::json getPlayersJson() const;
 
     void addNewPlayer(Player player);
+    void removePlayerFromIndex(int id);
     void removePlayerFromId(int id);
+
+    std::vector<Player>::iterator searchPlayerFromId(int id);
+
 };

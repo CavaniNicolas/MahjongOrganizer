@@ -85,15 +85,41 @@ void Room::addNewPlayer(Player player)
     determineNumberTables();
 }
 
-void Room::removePlayerFromId(int id)
+void Room::removePlayerFromIndex(int id)
 {
     if (id >= m_players.size()) {
         std::cout << "throw out of bound exception" << std::endl;
     }
     else {
-        std::cout << m_players.size() << std::endl;
         m_players.erase(m_players.begin() + id);
         m_nbOfPlayers--;
         determineNumberTables();
     }
+}
+
+void Room::removePlayerFromId(int id)
+{
+    std::vector<Player>::iterator iterator = searchPlayerFromId(id);
+
+    std::cout << "iterator : " << iterator->toJsonFull() << std::endl;
+    if (iterator != m_players.end()) {
+        m_players.erase(iterator);
+        m_nbOfPlayers--;
+        determineNumberTables();
+    }
+}
+
+std::vector<Player>::iterator Room::searchPlayerFromId(int id) // const
+{
+    std::vector<Player>::iterator iterator = m_players.begin();
+    bool isFound = false;
+
+    while (!isFound && iterator != m_players.end()) {
+        if (iterator->getID() == id) {
+            isFound = true;
+        } else {
+            iterator++;
+        }
+    }
+    return iterator;
 }

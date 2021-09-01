@@ -41,13 +41,15 @@ int main(int argc, char *argv[])
 
     room.addNewPlayer(Player("neuf", "neuf", Level::competitive));
 
-    room.removePlayerFromId(room.getNbOfPlayers()-1);
+    room.removePlayerFromIndex(room.getNbOfPlayers()-1);
 
     room.displayAllPlayers();
     std::cout << room.getNbOfPlayers() << std::endl;
 
-
     pp.writePlayersInFile(room.getPlayersJson());
+
+
+    room.removePlayerFromId(32);
 
 
     return app.exec();
