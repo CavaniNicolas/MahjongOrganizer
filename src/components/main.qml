@@ -1,5 +1,5 @@
-import QtQuick.Controls 2
 import QtQuick 2.12
+import QtQuick.Controls 2
 
 ApplicationWindow {
     id: window
@@ -121,11 +121,32 @@ ApplicationWindow {
                 spacing: 50
 
                 Button {
-                    id: button
+                    id: buttonNewPlayer
                     width: parent.width * 2 / 3
-                    text: qsTr("Arrange tables")
+                    text: qsTr("Add new player")
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    onClicked: {
+                        var component = Qt.createComponent("NewPlayerForm.qml")
+                        var windowForm    = component.createObject(window)
+                        windowForm.show()
+                    }
+                }
+
+                Button {
+                    id: buttonSavePlayers
+                    width: parent.width * 2 / 3
+                    text: qsTr("Save players")
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
+
+                Button {
+                    id: buttonStart
+                    width: parent.width * 2 / 3
+                    text: qsTr("Go with these players")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+
             }
         }
     }
