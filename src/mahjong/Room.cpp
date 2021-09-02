@@ -128,3 +128,10 @@ void Room::displayTables() const
         std::cout << std::endl;
     }
 }
+
+
+void Room::newPlayerFormSaved() // param : form data
+{
+//    addNewPlayer(Player(/*form data*/))
+    std::cout << "signal recu ! insane :D" << std::endl;
+}

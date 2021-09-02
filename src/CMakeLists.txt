@@ -1,4 +1,6 @@
 
+set(CMAKE_AUTOMOC ON)
+
 set(MAHJONG_EXE_NAME mahjong)
 
 set(SOURCES

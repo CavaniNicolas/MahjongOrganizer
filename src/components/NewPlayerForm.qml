@@ -1,4 +1,5 @@
 import QtQuick 2.12
+import QtQml 2.15
 import QtQuick.Controls 2
 import QtQuick.Layouts 1.1
 
@@ -12,6 +13,8 @@ ApplicationWindow {
     maximumHeight: height
     minimumWidth: width
     minimumHeight: height
+
+    signal onNewPlayerFormSaved()
 
     Item {
         id: content
@@ -170,6 +173,11 @@ ApplicationWindow {
             Button {
                 id: save
                 text: qsTr("Add Player")
+                onClicked: {
+                    console.log("emit onNewPlayerFormSaved()")
+//                    windowNewPlayerForm.onNewPlayerFormSaved() // tentative d'emission du signal... (connection signal slot dans main.cpp)
+                    onNewPlayerFormSaved.connect(room.newPlayerFormSaved); // tentative d'emission du signal... (connection signal slot dans qml ... ici en fait)
+                }
             }
         }
     }

@@ -2,10 +2,13 @@
 #pragma once
 
 #include <memory>
+#include <QObject>
 #include "mahjong/Table.hpp"
 
-class Room
+class Room : public QObject
 {
+    Q_OBJECT
+
 private:
 	int m_nbOfPlayers;
 	int m_nbTableOf4;
@@ -36,4 +39,8 @@ public:
 
     void addTable(Table table);
     void displayTables() const;
+
+public slots:
+    void newPlayerFormSaved();
+
 };
