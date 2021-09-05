@@ -1,10 +1,6 @@
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <QObject>
-
-#include <QQuickView>
-#include <QQmlComponent>
 #include <QQmlContext>
 
 #include <iostream>
@@ -34,12 +30,7 @@ int main(int argc, char *argv[])
 
     Room room(pp.readPlayersFromFile());
     room.displayAllPlayers();
-    
 
-//      on connect le signal qml au slot cpp dans le cpp
-//    QQmlComponent component(&engine, QUrl(QStringLiteral("qrc:/components/NewPlayerForm.qml")));
-//    QObject *object = component.create();
-//    QObject::connect(object, SIGNAL(onNewPlayerFormSaved()), &room, SLOT(newPlayerFormSaved()));
 
 //      on expose l'object Room au qml, pour pouvoir connect le signal qml au slot cpp dans le qml (onNewPlayerFormSaved.connect(room.newPlayerFormSaved); dans NewPlayerForm.qml)
     engine.rootContext()->setContextProperty("room", &room);

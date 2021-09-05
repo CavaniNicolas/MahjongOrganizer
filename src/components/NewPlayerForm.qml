@@ -14,8 +14,6 @@ ApplicationWindow {
     minimumWidth: width
     minimumHeight: height
 
-    signal onNewPlayerFormSaved()
-
     Item {
         id: content
 
@@ -174,9 +172,9 @@ ApplicationWindow {
                 id: save
                 text: qsTr("Add Player")
                 onClicked: {
-                    console.log("emit onNewPlayerFormSaved()")
-//                    windowNewPlayerForm.onNewPlayerFormSaved() // tentative d'emission du signal... (connection signal slot dans main.cpp)
-                    onNewPlayerFormSaved.connect(room.newPlayerFormSaved); // tentative d'emission du signal... (connection signal slot dans qml ... ici en fait)
+                    console.log("Button 'Add Player' clicked")
+                    room.newPlayerFormSaved()
+                    windowNewPlayerForm.visible = false
                 }
             }
         }
