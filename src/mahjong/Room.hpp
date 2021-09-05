@@ -41,6 +41,6 @@ public:
     void displayTables() const;
 
 public slots:
-    void newPlayerFormSaved();
+    void newPlayerFormSaved(QString firstName, QString lastName, QString level);
 
 };

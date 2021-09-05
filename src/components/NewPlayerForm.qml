@@ -173,7 +173,7 @@ ApplicationWindow {
                 text: qsTr("Add Player")
                 onClicked: {
                     console.log("Button 'Add Player' clicked")
-                    room.newPlayerFormSaved()
+                    room.newPlayerFormSaved(firstName.text, lastName.text, level.currentValue)
                     windowNewPlayerForm.visible = false
                 }
             }

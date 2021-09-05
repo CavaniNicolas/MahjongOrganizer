@@ -130,8 +130,8 @@ void Room::displayTables() const
 }
 
 
-void Room::newPlayerFormSaved() // param : form data
+void Room::newPlayerFormSaved(QString firstName, QString lastName, QString level)
 {
 //    addNewPlayer(Player(/*form data*/))
-    std::cout << "signal recu ! insane :D" << std::endl;
+    std::cout << "newPlayer : " << firstName.toStdString() << " " << lastName.toStdString() << " " << level.toStdString() << std::endl;
 }
