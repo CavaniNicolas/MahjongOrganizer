@@ -41,7 +41,7 @@ qt5_add_resources(SOURCES qml.qrc)
 
 list(TRANSFORM MAHJONG_QT_PACKAGES PREPEND "Qt5::")
 
-add_executable(${MAHJONG_EXE_NAME} ${SOURCES})
+add_executable(${MAHJONG_EXE_NAME} ${SOURCES} ${HEADERS})
 
 target_link_libraries(${MAHJONG_EXE_NAME} PRIVATE
     ${MAHJONG_QT_PACKAGES}
