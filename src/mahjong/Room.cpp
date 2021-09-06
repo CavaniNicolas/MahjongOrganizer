@@ -132,6 +132,11 @@ void Room::displayTables() const
 
 void Room::newPlayerFormSaved(QString firstName, QString lastName, QString level)
 {
-//    addNewPlayer(Player(/*form data*/))
+    if (firstName.isEmpty() || lastName.isEmpty()) {
+        emit newPlayerFormError();
+
+    } else {
+        addNewPlayer(Player(firstName.toStdString(), lastName.toStdString(), level.toStdString()));
+    }
     std::cout << "newPlayer : " << firstName.toStdString() << " " << lastName.toStdString() << " " << level.toStdString() << std::endl;
 }

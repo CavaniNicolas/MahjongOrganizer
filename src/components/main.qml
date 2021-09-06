@@ -1,5 +1,5 @@
 import QtQuick 2.12
-import QtQuick.Controls 2
+import QtQuick.Controls 2.15
 
 ApplicationWindow {
     id: window
@@ -149,6 +149,27 @@ ApplicationWindow {
 
             }
         }
+    }
+
+    Dialog {
+        title: qsTr("New Player Form Error")
+        id: formErrorDialog
+        modal: true
+        standardButtons: Dialog.Ok
+        anchors.centerIn: parent
+
+        property alias text: textLabel.text
+
+        Label {
+            id: textLabel
+            text: "Error saving new player, make sure to fill the entire form.
+The new player was not added."
+        }
+    }
+
+    Connections {
+        target: room
+        onNewPlayerFormError: formErrorDialog.open()
     }
 
 }

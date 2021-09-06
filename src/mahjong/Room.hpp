@@ -40,6 +40,9 @@ public:
     void addTable(Table table);
     void displayTables() const;
 
+signals:
+    void newPlayerFormError();
+
 public slots:
     void newPlayerFormSaved(QString firstName, QString lastName, QString level);
 
