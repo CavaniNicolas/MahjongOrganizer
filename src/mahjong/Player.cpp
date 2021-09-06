@@ -39,6 +39,12 @@ Player::Player(std::string name, std::string surname, Level level):
 }
 
 
+Player::Player(std::string name, std::string surname, std::string level):
+    Player::Player(name, surname, getLevelFromStr(level))
+{
+}
+
+
 Player::Player():
     Player::Player("Toto", "Toto", Level::beginner)
 {

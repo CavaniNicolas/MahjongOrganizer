@@ -23,6 +23,7 @@ private:
 
 public:
     Player(std::string name, std::string surname, Level level=Level::beginner);
+    Player(std::string name, std::string surname, std::string level);
     Player();
 	Player(nlohmann::json playerJson);
 	Player(Player const & player);
