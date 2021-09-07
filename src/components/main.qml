@@ -8,6 +8,14 @@ ApplicationWindow {
     visible: true
     title: "Mahjong Table Arranger"
 
+    property bool canClose: true
+    onClosing: {
+        close.accepted = canClose
+        if (canClose == false) {
+            dialogItems.unsavedChangesDialog.open()
+        }
+    }
+
     // Non resizable
     maximumWidth: width
     maximumHeight: height
@@ -129,6 +137,7 @@ ApplicationWindow {
                     onClicked: {
                         var component = Qt.createComponent("NewPlayerForm.qml")
                         var windowForm    = component.createObject(window)
+                        window.canClose = false
                         windowForm.show()
                     }
                 }
@@ -138,6 +147,9 @@ ApplicationWindow {
                     width: parent.width * 2 / 3
                     text: qsTr("Save players")
                     anchors.horizontalCenter: parent.horizontalCenter
+                    onClicked: {
+                        window.canClose = true
+                    }
                 }
 
                 Button {
@@ -146,30 +158,19 @@ ApplicationWindow {
                     text: qsTr("Go with these players")
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
-
             }
+
         }
     }
 
-    Dialog {
-        title: qsTr("New Player Form Error")
-        id: formErrorDialog
-        modal: true
-        standardButtons: Dialog.Ok
+    DialogItems {
         anchors.centerIn: parent
-
-        property alias text: textLabel.text
-
-        Label {
-            id: textLabel
-            text: "Error saving new player, make sure to fill the entire form.
-The new player was not added."
-        }
+        id: dialogItems
     }
 
     Connections {
         target: room
-        onNewPlayerFormError: formErrorDialog.open()
+        onNewPlayerFormError: dialogItems.formErrorDialog.open()
     }
 
 }

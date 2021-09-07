@@ -4,5 +4,6 @@
         <file>components/ContactModel.qml</file>
         <file>components/ContactDelegate.qml</file>
         <file>components/NewPlayerForm.qml</file>
+        <file>components/DialogItems.qml</file>
     </qresource>
 </RCC>
