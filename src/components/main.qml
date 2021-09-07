@@ -137,7 +137,7 @@ ApplicationWindow {
                     onClicked: {
                         var component = Qt.createComponent("NewPlayerForm.qml")
                         var windowForm    = component.createObject(window)
-                        window.canClose = false
+
                         windowForm.show()
                     }
                 }
@@ -145,8 +145,11 @@ ApplicationWindow {
                 Button {
                     id: buttonSavePlayers
                     width: parent.width * 2 / 3
-                    text: qsTr("Save players")
                     anchors.horizontalCenter: parent.horizontalCenter
+                    text: qsTr("Save players")
+
+                    enabled: !canClose
+
                     onClicked: {
                         window.canClose = true
                     }
@@ -171,6 +174,7 @@ ApplicationWindow {
     Connections {
         target: room
         onNewPlayerFormError: dialogItems.formErrorDialog.open()
+        onNewPlayerFormAdded: window.canClose = false
     }
 
 }

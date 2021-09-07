@@ -137,6 +137,7 @@ void Room::newPlayerFormSaved(QString firstName, QString lastName, QString level
 
     } else {
         addNewPlayer(Player(firstName.toStdString(), lastName.toStdString(), level.toStdString()));
+        emit newPlayerFormAdded();
     }
     std::cout << "newPlayer : " << firstName.toStdString() << " " << lastName.toStdString() << " " << level.toStdString() << std::endl;
 }

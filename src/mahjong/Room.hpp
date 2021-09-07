@@ -42,6 +42,7 @@ public:
 
 signals:
     void newPlayerFormError();
+    void newPlayerFormAdded();
 
 public slots:
     void newPlayerFormSaved(QString firstName, QString lastName, QString level);
