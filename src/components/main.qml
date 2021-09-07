@@ -173,8 +173,12 @@ ApplicationWindow {
 
     Connections {
         target: room
-        onNewPlayerFormError: dialogItems.formErrorDialog.open()
-        onNewPlayerFormAdded: window.canClose = false
+        function onNewPlayerFormError() {
+            dialogItems.formErrorDialog.open()
+        }
+        function onNewPlayerFormAdded() {
+            window.canClose = false
+        }
     }
 
 }
