@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.1
 
 ApplicationWindow {
     id: window
@@ -23,146 +24,179 @@ ApplicationWindow {
     minimumHeight: height
 
 
-    Row {
+    RowLayout {
         id: rowMain
         anchors.fill: parent
+        spacing: 0
 
-        Column {
-            id: columnLeft
-            anchors.left: rowMain.left
-            width: rowMain.width * 2 / 3
-            height: rowMain.height
+        ColumnLayout {
+            Rectangle {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
 
-            ListView {
-                id: listView
-                width: parent.width * 9 / 10
-                height: parent.height * 9 / 10
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-                delegate: Item {
-                    x: 5
-                    width: 80
-                    height: 50
-                    Row {
-                        id: listRow
-                        spacing: 10
-                        Rectangle {
-                            width: 40
-                            height: 40
-                            color: colorCode
+                ListView {
+                    id: listView
+                    width: parent.width * 9 / 10
+                    height: parent.height * 9 / 10
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    delegate: Item {
+                        x: 5
+                        width: 80
+                        height: 50
+                        Row {
+                            id: listRow
+                            spacing: 10
+                            Rectangle {
+                                width: 40
+                                height: 40
+                                color: colorCode
+                            }
+
+                            Text {
+                                text: name
+                                anchors.verticalCenter: parent.verticalCenter
+                                font.bold: true
+                            }
+
+                            CheckBox {
+                                id: checkBox
+                                anchors.verticalCenter: parent.verticalCenter
+                                text: qsTr("Check Box")
+                            }
+                        }
+                    }
+                    model: ListModel {
+                        ListElement {
+                            name: "Grey"
+                            colorCode: "grey"
                         }
 
-                        Text {
-                            text: name
-                            anchors.verticalCenter: parent.verticalCenter
-                            font.bold: true
+                        ListElement {
+                            name: "Red"
+                            colorCode: "red"
                         }
 
-                        CheckBox {
-                            id: checkBox
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: qsTr("Check Box")
+                        ListElement {
+                            name: "Blue"
+                            colorCode: "blue"
+                        }
+
+                        ListElement {
+                            name: "Green"
+                            colorCode: "green"
                         }
                     }
                 }
-                model: ListModel {
-                    ListElement {
-                        name: "Grey"
-                        colorCode: "grey"
-                    }
 
-                    ListElement {
-                        name: "Red"
-                        colorCode: "red"
-                    }
-
-                    ListElement {
-                        name: "Blue"
-                        colorCode: "blue"
-                    }
-
-                    ListElement {
-                        name: "Green"
-                        colorCode: "green"
-                    }
-                }
             }
+
         }
 
-        Column {
+        ColumnLayout {
             id: columnRight
-            anchors.left: columnLeft.right
-            anchors.right: rowMain.right
-            height: rowMain.height
+            spacing: 0
 
-            Column {
+            ColumnLayout {
                 id: columnRightTop
-                width: parent.width
-                height: parent.height / 2
-                topPadding: 50
-                spacing: 50
+                spacing: 0
 
-                ComboBox {
-                    id: comboBox
-                    width: parent.width * 2 / 3
-                    anchors.horizontalCenter: parent.horizontalCenter
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    ComboBox {
+                        id: comboBox
+                        width: parent.width * 2 / 3
+                        anchors.centerIn: parent
 
-                    model: [ "1h", "1h30", "2h" ]
+                        model: [ "1h", "1h30", "2h" ]
+                    }
                 }
 
-                ComboBox {
-                    id: comboBox1
-                    width: parent.width * 2 / 3
-                    anchors.horizontalCenter: parent.horizontalCenter
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    ComboBox {
+                        id: comboBox1
+                        width: parent.width * 2 / 3
+                        anchors.centerIn: parent
 
-                    model: [ "all together", "3 level groups", "beginner + leisure", "leisure + competitive" ]
+                        model: [ "all together", "3 level groups", "beginner + leisure", "leisure + competitive" ]
+                    }
+                }
+
+                Rectangle {
+//                    id: spacer
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
                 }
             }
 
-            Column {
+            ColumnLayout {
                 id: columnRightBot
-                width: parent.width
-                anchors.top: columnRightTop.bottom
-                anchors.bottom: parent.bottom
+                spacing: 0
 
-                topPadding: 50
-                spacing: 50
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
 
-                Button {
-                    id: buttonNewPlayer
-                    width: parent.width * 2 / 3
-                    text: qsTr("Add new player")
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    Button {
+                        id: buttonNewPlayer
+                        width: parent.width * 2 / 3
+                        text: qsTr("Add new player")
+                        anchors.centerIn: parent
 
-                    onClicked: {
-                        var component = Qt.createComponent("NewPlayerForm.qml")
-                        var windowForm    = component.createObject(window)
+                        onClicked: {
+                            var component = Qt.createComponent("NewPlayerForm.qml")
+                            var windowForm    = component.createObject(window)
 
-                        windowForm.show()
+                            windowForm.show()
+                        }
                     }
+
                 }
 
-                Button {
-                    id: buttonSavePlayers
-                    width: parent.width * 2 / 3
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: qsTr("Save players")
 
-                    enabled: !canClose
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
 
-                    onClicked: {
-                        window.canClose = true
+                    Button {
+                        id: buttonSavePlayers
+                        width: parent.width * 2 / 3
+                        anchors.centerIn: parent
+                        text: qsTr("Save players")
+
+                        enabled: !canClose
+
+                        onClicked: {
+                            window.canClose = true
+                        }
                     }
+
                 }
 
-                Button {
-                    id: buttonStart
-                    width: parent.width * 2 / 3
-                    text: qsTr("Go with these players")
-                    anchors.horizontalCenter: parent.horizontalCenter
+
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    Button {
+                        id: buttonStart
+                        width: parent.width * 2 / 3
+                        text: qsTr("Go with these players")
+                        anchors.centerIn: parent
+                    }
+
                 }
+
+                Rectangle {
+//                    id: spacer
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                }
+
             }
-
         }
     }
 
@@ -182,3 +216,4 @@ ApplicationWindow {
     }
 
 }
+
