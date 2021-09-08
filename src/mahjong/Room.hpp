@@ -34,8 +34,8 @@ public:
 
     nlohmann::json getPlayersJson() const;
     int getNbOfPlayers() const {return m_nbOfPlayers;}
-    int getNbTableOf4() const {return m_nbTableOf4;};
-	int getNbTableOf3() const {return m_nbTableOf3;};
+    int getNbTableOf4() const {return m_nbTableOf4;}
+    int getNbTableOf3() const {return m_nbTableOf3;}
 
     void addTable(Table table);
     void displayTables() const;

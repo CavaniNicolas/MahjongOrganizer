@@ -114,12 +114,11 @@ int Player::getID() const
 
 nlohmann::json Player::toJson() const
 {
-	nlohmann::json playerJson = {
-		{"name", m_name},
-		{"surname", m_surname},
-		{"level", getStringFromLevel(m_level)},
+    return nlohmann::json {
+        {"name", m_name},
+        {"surname", m_surname},
+        {"level", getStringFromLevel(m_level)},
     };
-	return playerJson;
 }
 
 nlohmann::json Player::toJsonFull() const
