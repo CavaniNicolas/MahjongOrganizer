@@ -9,6 +9,7 @@
 #include <mahjong/json.hpp>
 
 #include "mahjong/Player.hpp"
+#include "mahjong/PlayerModel.hpp"
 #include "mahjong/PlayerParser.hpp"
 #include "mahjong/Room.hpp"
 
@@ -29,7 +30,15 @@ int main(int argc, char *argv[])
 
 
     Room room(pp.readPlayersFromFile());
-    room.displayAllPlayers();
+//    room.displayAllPlayers();
+
+    PlayerModel playerModel;
+    playerModel.addPlayer(QPlayer("jean", "dupont", QString::fromStdString(getStringFromLevel(Level::beginner))));
+    playerModel.addPlayer(QPlayer("will", "smith", QString::fromStdString(getStringFromLevel(Level::leisure))));
+    playerModel.addPlayer(QPlayer("el boban", "novic", QString::fromStdString(getStringFromLevel(Level::competitive))));
+
+
+    engine.rootContext()->setContextProperty("playerModel", &playerModel);
 
 
 //      on expose l'object Room au qml, pour pouvoir connect le signal qml au slot cpp dans le qml (onNewPlayerFormSaved.connect(room.newPlayerFormSaved); dans NewPlayerForm.qml)
@@ -50,7 +59,7 @@ int main(int argc, char *argv[])
 
     room.removePlayerFromIndex(room.getNbOfPlayers()-1);
 
-    room.displayAllPlayers();
+//    room.displayAllPlayers();
     std::cout << room.getNbOfPlayers() << std::endl;
 
     pp.writePlayersInFile(room.getPlayersJson());

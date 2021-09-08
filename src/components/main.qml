@@ -34,63 +34,17 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
-                ListView {
+                PlayersView {
                     id: listView
                     width: parent.width * 9 / 10
                     height: parent.height * 9 / 10
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    delegate: Item {
-                        x: 5
-                        width: 80
-                        height: 50
-                        Row {
-                            id: listRow
-                            spacing: 10
-                            Rectangle {
-                                width: 40
-                                height: 40
-                                color: colorCode
-                            }
-
-                            Text {
-                                text: name
-                                anchors.verticalCenter: parent.verticalCenter
-                                font.bold: true
-                            }
-
-                            CheckBox {
-                                id: checkBox
-                                anchors.verticalCenter: parent.verticalCenter
-                                text: qsTr("Check Box")
-                            }
-                        }
-                    }
-                    model: ListModel {
-                        ListElement {
-                            name: "Grey"
-                            colorCode: "grey"
-                        }
-
-                        ListElement {
-                            name: "Red"
-                            colorCode: "red"
-                        }
-
-                        ListElement {
-                            name: "Blue"
-                            colorCode: "blue"
-                        }
-
-                        ListElement {
-                            name: "Green"
-                            colorCode: "green"
-                        }
-                    }
+                    orientation: Qt.Vertical
+                    verticalLayoutDirection: ListView.TopToBottom
                 }
 
             }
-
         }
 
         ColumnLayout {
@@ -206,7 +160,8 @@ ApplicationWindow {
     }
 
     Connections {
-        target: room
+//        target: room
+        target: playerModel
         function onNewPlayerFormError() {
             dialogItems.formErrorDialog.open()
         }

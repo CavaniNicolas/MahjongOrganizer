@@ -1,9 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>components/main.qml</file>
-        <file>components/ContactModel.qml</file>
-        <file>components/ContactDelegate.qml</file>
+        <file>components/PlayersDelegate.qml</file>
         <file>components/NewPlayerForm.qml</file>
         <file>components/DialogItems.qml</file>
+        <file>components/PlayersView.qml</file>
     </qresource>
 </RCC>
