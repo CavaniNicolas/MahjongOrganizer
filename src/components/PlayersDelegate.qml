@@ -19,12 +19,9 @@ Item {
         id: listRow
         spacing: 10
 
-        Rectangle {
-            width: 40
-            height: 40
-            radius: width * 0.25
-
-            color: "red"
+        Item {
+//            id: spacer
+            width: 10
         }
 
         Text {
@@ -36,6 +33,11 @@ Item {
             text: name
         }
 
+        Item {
+//            id: spacer
+            width: 20
+        }
+
         Text {
             id: playerFirstNameText
 
@@ -43,6 +45,11 @@ Item {
             Layout.fillWidth: true
 
             text: surname
+        }
+
+        Item {
+//            id: spacer
+            width: 50
         }
 
         Text {
@@ -55,13 +62,22 @@ Item {
             font.bold: true
         }
 
+//        Item {
+////            id: spacer
+//            width: 10
+//        }
+
         CheckBox {
             id: isPlayerHereCheckBox
 
-            x: parent.parent.width / 2
             Layout.fillWidth: true
 
 //            text: qsTr("Check Box")
+        }
+
+        Item {
+//            id: spacer
+            width: 20
         }
 
         Button {
