@@ -5,7 +5,7 @@
 #include <mahjong/json.hpp>
 
 enum class Level {
-	beginner, leisure, competitive
+    Beginner, Leisure, Competitive
 };
 
 std::string getStringFromLevel(Level level);
@@ -22,7 +22,7 @@ private:
 	int m_playerID;
 
 public:
-    Player(std::string name, std::string surname, Level level=Level::beginner);
+    Player(std::string name, std::string surname, Level level=Level::Beginner);
     Player(std::string name, std::string surname, std::string level);
     Player();
 	Player(nlohmann::json playerJson);

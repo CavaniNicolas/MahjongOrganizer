@@ -75,7 +75,7 @@ ApplicationWindow {
                         width: parent.width * 2 / 3
                         anchors.centerIn: parent
 
-                        model: [ "all together", "3 level groups", "beginner + leisure", "leisure + competitive" ]
+                        model: [ "all together", "3 level groups", "Beginner + Leisure", "Leisure + Competitive" ]
                     }
                 }
 

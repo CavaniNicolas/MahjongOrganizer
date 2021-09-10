@@ -7,25 +7,25 @@ int Player::m_playerNum = 0;
 
 std::string getStringFromLevel(Level level)
 {
-	if (level == Level::beginner)
-		return "beginner";
-	if (level == Level::leisure)
-		return "leisure";
-	if (level == Level::competitive)
-		return "competitive"; 
-    return "competitive";
+    if (level == Level::Beginner)
+        return "Beginner";
+    if (level == Level::Leisure)
+        return "Leisure";
+    if (level == Level::Competitive)
+        return "Competitive";
+    return "Competitive";
 }
 
 Level getLevelFromStr(std::string level)
 {
-	if (!level.compare("beginner")) {
-		return Level::beginner;
-	} else if (!level.compare("leisure")) {
-		return Level::leisure;
+    if (!level.compare("Beginner")) {
+        return Level::Beginner;
+    } else if (!level.compare("Leisure")) {
+        return Level::Leisure;
 	} else {
-		return Level::competitive;
+        return Level::Competitive;
 	}
-	return Level::competitive;
+    return Level::Competitive;
 }
 
 
@@ -46,7 +46,7 @@ Player::Player(std::string name, std::string surname, std::string level):
 
 
 Player::Player():
-    Player::Player("Toto", "Toto", Level::beginner)
+    Player::Player("Toto", "Toto", Level::Beginner)
 {
 }
 

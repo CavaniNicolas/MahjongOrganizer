@@ -33,9 +33,10 @@ int main(int argc, char *argv[])
 //    room.displayAllPlayers();
 
     PlayerModel playerModel;
-    playerModel.addPlayer(QPlayer("jean", "dupont", QString::fromStdString(getStringFromLevel(Level::beginner))));
-    playerModel.addPlayer(QPlayer("will", "smith", QString::fromStdString(getStringFromLevel(Level::leisure))));
-    playerModel.addPlayer(QPlayer("el boban", "novic", QString::fromStdString(getStringFromLevel(Level::competitive))));
+    playerModel.addPlayer(QPlayer("jean", "dupont", QString::fromStdString(getStringFromLevel(Level::Beginner))));
+    playerModel.addPlayer(QPlayer("will", "smith", QString::fromStdString(getStringFromLevel(Level::Leisure))));
+    playerModel.addPlayer(QPlayer("el boban", "novic", QString::fromStdString(getStringFromLevel(Level::Competitive))));
+    playerModel.addPlayer(QPlayer("dernier", "dernier", QString::fromStdString(getStringFromLevel(Level::Competitive))));
 
 
     engine.rootContext()->setContextProperty("playerModel", &playerModel);
@@ -55,7 +56,7 @@ int main(int argc, char *argv[])
 //    room.displayTables();
 
 
-    room.addNewPlayer(Player("neuf", "neuf", Level::competitive));
+    room.addNewPlayer(Player("neuf", "neuf", Level::Competitive));
 
     room.removePlayerFromIndex(room.getNbOfPlayers()-1);
 
