@@ -1,6 +1,7 @@
 
 #include <QAbstractListModel>
 #include <QStringList>
+#include <QList>
 
 class QPlayer
 {
@@ -22,6 +23,7 @@ private:
 class PlayerModel : public QAbstractListModel
 {
     Q_OBJECT
+
 public:
     enum PlayerRoles {
         NameRole = Qt::UserRole + 1,
@@ -29,7 +31,17 @@ public:
         LevelRole
     };
 
+    enum OrderPlayersBy {
+        None = 0,
+        Level,
+        Name,
+        Surname,
+        Presence
+    };
+
     PlayerModel(QObject *parent = 0);
+
+    QList<QPlayer>::iterator searchLastPlayerSameLevelIndex(const QPlayer &player);
 
     void addPlayer(const QPlayer &player);
 
@@ -41,6 +53,7 @@ protected:
     QHash<int, QByteArray> roleNames() const;
 private:
     QList<QPlayer> m_players;
+    OrderPlayersBy m_orderPlayersBy;
 
 signals:
     void newPlayerFormError();
