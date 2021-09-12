@@ -9,6 +9,8 @@ ApplicationWindow {
     visible: true
     title: "Mahjong Table Arranger"
 
+    property int fontSize: 20
+
     property bool canClose: true
     onClosing: {
         close.accepted = canClose
@@ -63,6 +65,7 @@ ApplicationWindow {
                         width: parent.width * 2 / 3
                         anchors.centerIn: parent
 
+                        font.pixelSize: fontSize
                         model: [ "1h", "1h30", "2h" ]
                     }
                 }
@@ -75,6 +78,7 @@ ApplicationWindow {
                         width: parent.width * 2 / 3
                         anchors.centerIn: parent
 
+                        font.pixelSize: fontSize
                         model: [ "all together", "3 level groups", "Beginner + Leisure", "Leisure + Competitive" ]
                     }
                 }
@@ -97,8 +101,10 @@ ApplicationWindow {
                     Button {
                         id: buttonNewPlayer
                         width: parent.width * 2 / 3
-                        text: qsTr("Add new player")
                         anchors.centerIn: parent
+
+                        text: qsTr("Add new player")
+                        font.pixelSize: fontSize
 
                         onClicked: {
                             var component = Qt.createComponent("NewPlayerForm.qml")
@@ -119,7 +125,9 @@ ApplicationWindow {
                         id: buttonSavePlayers
                         width: parent.width * 2 / 3
                         anchors.centerIn: parent
+
                         text: qsTr("Save players")
+                        font.pixelSize: fontSize
 
                         enabled: !canClose
 
@@ -138,8 +146,10 @@ ApplicationWindow {
                     Button {
                         id: buttonStart
                         width: parent.width * 2 / 3
-                        text: qsTr("Go with these players")
                         anchors.centerIn: parent
+
+                        text: qsTr("Go with these players")
+                        font.pixelSize: fontSize
                     }
 
                 }

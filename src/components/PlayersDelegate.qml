@@ -7,6 +7,8 @@ Item {
     width: parent.width
     height: 50
 
+    property int fontSize: 16
+
     Rectangle {
         y: 5
         width: parent.width
@@ -30,6 +32,7 @@ Item {
             Layout.preferredWidth: parent.width / 6
             Layout.fillWidth: true
 
+            font.pixelSize: fontSize
             text: name
         }
 
@@ -44,6 +47,7 @@ Item {
             Layout.preferredWidth: parent.width / 6
             Layout.fillWidth: true
 
+            font.pixelSize: fontSize
             text: surname
         }
 
@@ -58,14 +62,15 @@ Item {
             Layout.preferredWidth: parent.width / 6
             Layout.fillWidth: true
 
+            font.pixelSize: fontSize
             text: level
             font.bold: true
         }
 
-//        Item {
-////            id: spacer
-//            width: 10
-//        }
+        Item {
+//            id: spacer
+            width: 10
+        }
 
         CheckBox {
             id: isPlayerHereCheckBox
@@ -77,7 +82,7 @@ Item {
 
         Item {
 //            id: spacer
-            width: 20
+            width: 3
         }
 
         Button {

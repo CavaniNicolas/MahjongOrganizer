@@ -6,11 +6,13 @@ Item {
 
     property alias formErrorDialog: formErrorDialog
     property alias unsavedChangesDialog: unsavedChangesDialog
+    property int fontSize: 16
 
     Dialog {
         id: formErrorDialog
         title: qsTr("New Player Form Error")
         anchors.centerIn: parent
+        font.pixelSize: fontSize
 
         modal: true
         standardButtons: Dialog.Ok
@@ -28,6 +30,7 @@ The new player was not added."
         id: unsavedChangesDialog
         title: qsTr("Unsaved Changes")
         anchors.centerIn: parent
+        font.pixelSize: fontSize
 
         modal: true
         standardButtons: Dialog.Ok | Dialog.Cancel

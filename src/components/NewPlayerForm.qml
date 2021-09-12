@@ -6,7 +6,8 @@ import QtQuick.Layouts 1.1
 ApplicationWindow {
     id: windowNewPlayerForm
     title: "New Player Form"
-    width: 480; height: 480
+    width: 520; height: 520
+    font.pixelSize: 16
 
     // Non resizable
     maximumWidth: width

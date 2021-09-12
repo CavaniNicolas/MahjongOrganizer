@@ -20,7 +20,7 @@ ListView {
             Text {
                 text: parent.section
                 font.bold: true
-                font.pixelSize: 20
+                font.pixelSize: 25
             }
         }
     }
