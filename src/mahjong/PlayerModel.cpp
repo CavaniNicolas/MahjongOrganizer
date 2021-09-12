@@ -49,7 +49,8 @@ QList<QPlayer>::iterator PlayerModel::searchLastPlayerSameLevelIndex(const QPlay
 
 void PlayerModel::addPlayer(const QPlayer &player)
 {
-    beginInsertRows(QModelIndex(), rowCount(), rowCount());
+    beginResetModel();
+//    beginInsertRows(QModelIndex(), rowCount(), rowCount());
 
     if (m_orderPlayersBy == OrderPlayersBy::Level) {
         QList<QPlayer>::iterator iteratorBefore = searchLastPlayerSameLevelIndex(player);
@@ -66,7 +67,9 @@ void PlayerModel::addPlayer(const QPlayer &player)
         std::cout << "LAAAAAAAAAAA FRERE" << std::endl;
         m_players << player;
     }
-    endInsertRows();
+
+//    endInsertRows();
+    endResetModel();
 }
 
 int PlayerModel::rowCount(const QModelIndex & parent) const {
