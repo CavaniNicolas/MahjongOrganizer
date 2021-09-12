@@ -73,6 +73,7 @@ ApplicationWindow {
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+
                     ComboBox {
                         id: comboBox1
                         width: parent.width * 2 / 3
@@ -80,7 +81,20 @@ ApplicationWindow {
 
                         font.pixelSize: fontSize
                         model: [ "all together", "3 level groups", "Beginner + Leisure", "Leisure + Competitive" ]
+
+                        delegate: ItemDelegate {
+                            width: comboBox1.width
+                            contentItem: Text {
+                                text: modelData
+                                color: "green"
+                                font: comboBox1.font
+                                elide: Text.ElideRight
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            highlighted: comboBox1.highlightedIndex === index
+                        }
                     }
+
                 }
 
                 Rectangle {
