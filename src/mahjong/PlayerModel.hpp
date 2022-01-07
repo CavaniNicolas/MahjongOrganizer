@@ -1,37 +1,37 @@
 
 #include <QAbstractListModel>
-#include <QStringList>
 #include <QList>
+#include <QStringList>
 
 class QPlayer
 {
-public:
-    QPlayer(const QString &name, const QString &surname, const QString &level);
+  public:
+    QPlayer(const QString& name, const QString& surname, const QString& level);
 
     QString getName() const;
     QString getSurname() const;
     QString getLevel() const;
 
-private:
+  private:
     QString m_name;
     QString m_surname;
     QString m_level;
 };
 
-
-
 class PlayerModel : public QAbstractListModel
 {
     Q_OBJECT
 
-public:
-    enum PlayerRoles {
+  public:
+    enum PlayerRoles
+    {
         NameRole = Qt::UserRole + 1,
         SurnameRole,
         LevelRole
     };
 
-    enum OrderPlayersBy {
+    enum OrderPlayersBy
+    {
         None = 0,
         Level,
         Name,
@@ -39,27 +39,27 @@ public:
         Presence
     };
 
-    PlayerModel(QObject *parent = 0);
+    PlayerModel(QObject* parent = 0);
 
-    QList<QPlayer>::iterator searchLastPlayerSameLevelIndex(const QPlayer &player);
+    QList<QPlayer>::iterator searchLastPlayerSameLevelIndex(const QPlayer& player);
 
-    void addPlayer(const QPlayer &player);
+    void addPlayer(const QPlayer& player);
 
-    int rowCount(const QModelIndex & parent = QModelIndex()) const;
+    int rowCount(const QModelIndex& parent = QModelIndex()) const;
 
-    QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 
-protected:
+  protected:
     QHash<int, QByteArray> roleNames() const;
-private:
+
+  private:
     QList<QPlayer> m_players;
     OrderPlayersBy m_orderPlayersBy;
 
-signals:
+  signals:
     void newPlayerFormError();
     void newPlayerFormAdded();
 
-public slots:
+  public slots:
     void newPlayerFormSaved(QString firstName, QString lastName, QString level);
-
 };
