@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    PlayerParser pp("mahjong.json");
+    PlayerParser pp(std::string(RESOURCE_PATH) + "mahjong.json");
 
     Room room(pp.readPlayersFromFile());
     //    room.displayAllPlayers();
