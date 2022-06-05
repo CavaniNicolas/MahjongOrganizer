@@ -46,18 +46,6 @@ int main(int argc, char* argv[])
     //      NewPlayerForm.qml)
     engine.rootContext()->setContextProperty("room", &room);
 
-    //    std::array<Player, 4> table = {Player("un", "un", Level::competitive),
-    //    Player("un", "un", Level::competitive), Player("trois", "un",
-    //    Level::competitive), Player("un", "un", Level::competitive)};
-    //    // Table table1 = Table(Player("un", "un", Level::competitive),
-    //    Player("un", "un", Level::competitive), Player("un", "un",
-    //    Level::competitive), Player("un", "un", Level::competitive)); Table
-    //    table1 = Table(table);
-
-    //    room.addTable(table1);
-
-    //    room.displayTables();
-
     room.addNewPlayer(Player("neuf", "neuf", Level::Competitive));
 
     room.removePlayerFromIndex(room.getNbOfPlayers() - 1);

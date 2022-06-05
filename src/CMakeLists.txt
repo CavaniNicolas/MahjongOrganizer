@@ -9,7 +9,6 @@ set(SOURCES
         mahjong/PlayerModel.cpp
 	mahjong/PlayerParser.cpp
 	mahjong/Room.cpp
-	mahjong/Table.cpp
 )
 
 set(HEADERS
@@ -18,7 +17,6 @@ set(HEADERS
         mahjong/PlayerModel.hpp
 	mahjong/PlayerParser.hpp
 	mahjong/Room.hpp
-	mahjong/Table.hpp
 )
 
 

@@ -1,9 +1,10 @@
 
 #pragma once
 
-#include "mahjong/Table.hpp"
 #include <QObject>
 #include <memory>
+
+#include "mahjong/Player.hpp"
 
 class Room : public QObject
 {
@@ -15,8 +16,6 @@ class Room : public QObject
     int m_nbTableOf3;
 
     std::vector<Player> m_players;
-
-    std::vector<Table> m_tables;
 
   public:
     Room(nlohmann::json players);
@@ -45,9 +44,6 @@ class Room : public QObject
     {
         return m_nbTableOf3;
     }
-
-    void addTable(Table table);
-    void displayTables() const;
 
   signals:
     void newPlayerFormError();
