@@ -1,18 +1,18 @@
 
 #pragma once
 
-#include <iostream>
 #include "mahjong/Player.hpp"
+#include <iostream>
 
 class PlayerParser
 {
-private:
-	std::string m_filename;
+  private:
+    std::string m_filename;
 
-public:
-	PlayerParser(std::string const filename);
-	~PlayerParser()=default;
+  public:
+    PlayerParser(std::string const filename);
+    ~PlayerParser() = default;
 
-	nlohmann::json readPlayersFromFile();
-	void writePlayersInFile(nlohmann::json players);
+    nlohmann::json readPlayersFromFile();
+    void writePlayersInFile(nlohmann::json players);
 };

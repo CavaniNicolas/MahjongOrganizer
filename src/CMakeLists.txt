@@ -6,6 +6,7 @@ set(MAHJONG_EXE_NAME mahjong)
 set(SOURCES
 	main.cpp
 	mahjong/Player.cpp
+        mahjong/PlayerModel.cpp
 	mahjong/PlayerParser.cpp
 	mahjong/Room.cpp
 	mahjong/Table.cpp
@@ -14,6 +15,7 @@ set(SOURCES
 set(HEADERS
 	mahjong/json.hpp
 	mahjong/Player.hpp
+        mahjong/PlayerModel.hpp
 	mahjong/PlayerParser.hpp
 	mahjong/Room.hpp
 	mahjong/Table.hpp
@@ -42,6 +44,8 @@ qt5_add_resources(SOURCES qml.qrc)
 list(TRANSFORM MAHJONG_QT_PACKAGES PREPEND "Qt5::")
 
 add_executable(${MAHJONG_EXE_NAME} ${SOURCES} ${HEADERS})
+
+target_compile_definitions(${MAHJONG_EXE_NAME} PRIVATE -DRESOURCE_PATH="${CMAKE_SOURCE_DIR}/res/")
 
 target_link_libraries(${MAHJONG_EXE_NAME} PRIVATE
     ${MAHJONG_QT_PACKAGES}

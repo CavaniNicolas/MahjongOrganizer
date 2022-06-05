@@ -9,6 +9,8 @@ ApplicationWindow {
     visible: true
     title: "Mahjong Table Arranger"
 
+    property int fontSize: 20
+
     property bool canClose: true
     onClosing: {
         close.accepted = canClose
@@ -34,63 +36,17 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
-                ListView {
+                PlayersView {
                     id: listView
                     width: parent.width * 9 / 10
                     height: parent.height * 9 / 10
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    delegate: Item {
-                        x: 5
-                        width: 80
-                        height: 50
-                        Row {
-                            id: listRow
-                            spacing: 10
-                            Rectangle {
-                                width: 40
-                                height: 40
-                                color: colorCode
-                            }
-
-                            Text {
-                                text: name
-                                anchors.verticalCenter: parent.verticalCenter
-                                font.bold: true
-                            }
-
-                            CheckBox {
-                                id: checkBox
-                                anchors.verticalCenter: parent.verticalCenter
-                                text: qsTr("Check Box")
-                            }
-                        }
-                    }
-                    model: ListModel {
-                        ListElement {
-                            name: "Grey"
-                            colorCode: "grey"
-                        }
-
-                        ListElement {
-                            name: "Red"
-                            colorCode: "red"
-                        }
-
-                        ListElement {
-                            name: "Blue"
-                            colorCode: "blue"
-                        }
-
-                        ListElement {
-                            name: "Green"
-                            colorCode: "green"
-                        }
-                    }
+                    orientation: Qt.Vertical
+                    verticalLayoutDirection: ListView.TopToBottom
                 }
 
             }
-
         }
 
         ColumnLayout {
@@ -109,6 +65,7 @@ ApplicationWindow {
                         width: parent.width * 2 / 3
                         anchors.centerIn: parent
 
+                        font.pixelSize: fontSize
                         model: [ "1h", "1h30", "2h" ]
                     }
                 }
@@ -116,13 +73,28 @@ ApplicationWindow {
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+
                     ComboBox {
                         id: comboBox1
                         width: parent.width * 2 / 3
                         anchors.centerIn: parent
 
-                        model: [ "all together", "3 level groups", "beginner + leisure", "leisure + competitive" ]
+                        font.pixelSize: fontSize
+                        model: [ "all together", "3 level groups", "Beginner + Leisure", "Leisure + Competitive" ]
+
+                        delegate: ItemDelegate {
+                            width: comboBox1.width
+                            contentItem: Text {
+                                text: modelData
+                                color: "green"
+                                font: comboBox1.font
+                                elide: Text.ElideRight
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            highlighted: comboBox1.highlightedIndex === index
+                        }
                     }
+
                 }
 
                 Rectangle {
@@ -143,8 +115,10 @@ ApplicationWindow {
                     Button {
                         id: buttonNewPlayer
                         width: parent.width * 2 / 3
-                        text: qsTr("Add new player")
                         anchors.centerIn: parent
+
+                        text: qsTr("Add new player")
+                        font.pixelSize: fontSize
 
                         onClicked: {
                             var component = Qt.createComponent("NewPlayerForm.qml")
@@ -165,7 +139,9 @@ ApplicationWindow {
                         id: buttonSavePlayers
                         width: parent.width * 2 / 3
                         anchors.centerIn: parent
+
                         text: qsTr("Save players")
+                        font.pixelSize: fontSize
 
                         enabled: !canClose
 
@@ -184,8 +160,10 @@ ApplicationWindow {
                     Button {
                         id: buttonStart
                         width: parent.width * 2 / 3
-                        text: qsTr("Go with these players")
                         anchors.centerIn: parent
+
+                        text: qsTr("Go with these players")
+                        font.pixelSize: fontSize
                     }
 
                 }
@@ -206,7 +184,8 @@ ApplicationWindow {
     }
 
     Connections {
-        target: room
+//        target: room
+        target: playerModel
         function onNewPlayerFormError() {
             dialogItems.formErrorDialog.open()
         }

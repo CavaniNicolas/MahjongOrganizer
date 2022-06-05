@@ -2,15 +2,11 @@
 #include <fstream>
 #include <iostream>
 
-#include "mahjong/json.hpp"
-#include "mahjong/PlayerParser.hpp"
 #include "mahjong/Player.hpp"
+#include "mahjong/PlayerParser.hpp"
+#include "mahjong/json.hpp"
 
-PlayerParser::PlayerParser(std::string const filename):
-	m_filename(filename)
-{
-}
-
+PlayerParser::PlayerParser(std::string const filename): m_filename(filename) {}
 
 nlohmann::json PlayerParser::readPlayersFromFile()
 {
@@ -19,10 +15,13 @@ nlohmann::json PlayerParser::readPlayersFromFile()
 
     std::ifstream file(m_filename);
 
-    if (file.is_open()) {
+    if(file.is_open())
+    {
         file >> players;
         std::cout << "Using file : '" << m_filename << "' to load players" << std::endl;
-    } else {
+    }
+    else
+    {
         std::cout << "The file : '" << m_filename << "' does not exist" << std::endl;
     }
 
@@ -33,7 +32,8 @@ void PlayerParser::writePlayersInFile(nlohmann::json players)
 {
     std::ofstream file(m_filename);
 
-    if (file.is_open()) {
+    if(file.is_open())
+    {
         file << players.dump(4) << std::endl;
     }
 }

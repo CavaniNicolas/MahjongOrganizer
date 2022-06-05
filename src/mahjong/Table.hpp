@@ -5,12 +5,12 @@
 
 class Table
 {
-private:
-	std::array<Player, 4> m_players;
+  private:
+    std::array<Player, 4> m_players;
 
-public:
-	Table(std::array<Player, 4>);
-	~Table();
+  public:
+    Table(std::array<Player, 4>);
+    ~Table();
 
-	std::array<Player, 4> getPlayers() const;
+    std::array<Player, 4> getPlayers() const;
 };
