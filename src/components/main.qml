@@ -184,7 +184,6 @@ ApplicationWindow {
     }
 
     Connections {
-//        target: room
         target: playerModel
         function onNewPlayerFormError() {
             dialogItems.formErrorDialog.open()

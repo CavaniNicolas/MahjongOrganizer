@@ -6,23 +6,11 @@
 
 #include "mahjong/Player.hpp"
 
-class Room : public QObject
+class Room
 {
-    Q_OBJECT
-
-  private:
-    int m_nbOfPlayers;
-    int m_nbTableOf4;
-    int m_nbTableOf3;
-
-    std::vector<Player> m_players;
-
   public:
     Room(nlohmann::json players);
     ~Room() = default;
-
-    void createPlayersFromJson(nlohmann::json players);
-    void determineNumberTables();
 
     void addNewPlayer(Player player);
     std::vector<Player>::iterator searchPlayerFromId(int id);
@@ -45,10 +33,13 @@ class Room : public QObject
         return m_nbTableOf3;
     }
 
-  signals:
-    void newPlayerFormError();
-    void newPlayerFormAdded();
+  private:
+    void createPlayersFromJson(nlohmann::json players);
+    void determineNumberTables();
 
-  public slots:
-    void newPlayerFormSaved(QString firstName, QString lastName, QString level);
+    int m_nbOfPlayers;
+    int m_nbTableOf4;
+    int m_nbTableOf3;
+
+    std::vector<Player> m_players;
 };

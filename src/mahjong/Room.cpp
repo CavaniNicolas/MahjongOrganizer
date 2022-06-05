@@ -117,18 +117,3 @@ nlohmann::json Room::getPlayersJson() const
     }
     return players;
 }
-
-void Room::newPlayerFormSaved(QString firstName, QString lastName, QString level)
-{
-    if(firstName.isEmpty() || lastName.isEmpty())
-    {
-        emit newPlayerFormError();
-    }
-    else
-    {
-        addNewPlayer(Player(firstName.toStdString(), lastName.toStdString(), level.toStdString()));
-        emit newPlayerFormAdded();
-    }
-    std::cout << "newPlayer : " << firstName.toStdString() << " " << lastName.toStdString() << " "
-              << level.toStdString() << std::endl;
-}
