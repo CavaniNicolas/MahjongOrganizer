@@ -16,14 +16,6 @@ Level getLevelFromStr(std::string level);
 
 class Player
 {
-  private:
-    static int m_playerNum;
-
-    std::string m_name;
-    std::string m_surname;
-    Level m_level;
-    int m_playerID;
-
   public:
     Player(std::string name, std::string surname, Level level = Level::Beginner);
     Player(std::string name, std::string surname, std::string level);
@@ -43,4 +35,12 @@ class Player
     nlohmann::json toJsonFull() const;
 
     Player& operator=(Player const& player);
+
+  private:
+    static int m_playerNum;
+
+    std::string m_name;
+    std::string m_surname;
+    Level m_level;
+    int m_playerID;
 };
