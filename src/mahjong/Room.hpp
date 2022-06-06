@@ -1,29 +1,16 @@
 
 #pragma once
 
-#include "mahjong/Table.hpp"
 #include <QObject>
 #include <memory>
 
-class Room : public QObject
+#include "mahjong/Player.hpp"
+
+class Room
 {
-    Q_OBJECT
-
-  private:
-    int m_nbOfPlayers;
-    int m_nbTableOf4;
-    int m_nbTableOf3;
-
-    std::vector<Player> m_players;
-
-    std::vector<Table> m_tables;
-
   public:
     Room(nlohmann::json players);
     ~Room() = default;
-
-    void createPlayersFromJson(nlohmann::json players);
-    void determineNumberTables();
 
     void addNewPlayer(Player player);
     std::vector<Player>::iterator searchPlayerFromId(int id);
@@ -46,13 +33,13 @@ class Room : public QObject
         return m_nbTableOf3;
     }
 
-    void addTable(Table table);
-    void displayTables() const;
+  private:
+    void createPlayersFromJson(nlohmann::json players);
+    void determineNumberTables();
 
-  signals:
-    void newPlayerFormError();
-    void newPlayerFormAdded();
+    int m_nbOfPlayers;
+    int m_nbTableOf4;
+    int m_nbTableOf3;
 
-  public slots:
-    void newPlayerFormSaved(QString firstName, QString lastName, QString level);
+    std::vector<Player> m_players;
 };

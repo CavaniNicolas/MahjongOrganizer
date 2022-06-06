@@ -23,6 +23,21 @@ QString QPlayer::getLevel() const
     return m_level;
 }
 
+void QPlayer::setName(QString name)
+{
+    m_name = name;
+}
+
+void QPlayer::setSurname(QString surname)
+{
+    m_surname = surname;
+}
+
+void QPlayer::setLevel(QString level)
+{
+    m_level = level;
+}
+
 PlayerModel::PlayerModel(QObject* parent): QAbstractListModel(parent), m_orderPlayersBy(OrderPlayersBy::Level) {}
 
 QList<QPlayer>::iterator PlayerModel::searchLastPlayerSameLevelIndex(const QPlayer& player)
@@ -82,6 +97,8 @@ int PlayerModel::rowCount(const QModelIndex& parent) const
 
 QVariant PlayerModel::data(const QModelIndex& index, int role) const
 {
+    // std::cout << index.flags() << std::endl;
+
     if(index.row() < 0 || index.row() >= m_players.count())
         return QVariant();
 
@@ -94,6 +111,34 @@ QVariant PlayerModel::data(const QModelIndex& index, int role) const
         return player.getLevel();
     return QVariant();
 }
+
+// playerModel.setData(playerModel.index(0), "yo", PlayerModel::PlayerRoles::NameRole);
+bool PlayerModel::setData(const QModelIndex& index, const QVariant& value, int role)
+{
+    if(data(index, role) != value)
+    {
+        QPlayer& player = m_players[index.row()];
+
+        switch(role)
+        {
+            case NameRole: player.setName(value.toString()); break;
+            case SurnameRole: player.setSurname(value.toString()); break;
+            case LevelRole: player.setLevel(value.toString()); break;
+            default: return false;
+        }
+
+        m_players.replace(index.row(), player);
+
+        emit dataChanged(index, index, QVector<int>() << role);
+        return true;
+    }
+    return false;
+}
+
+// Qt::ItemFlags PlayerModel::flags(const QModelIndex& index) const
+//{
+//     return Qt::ItemIsSelectable + Qt::ItemIsEnabled + Qt::ItemNeverHasChildren;
+// }
 
 QHash<int, QByteArray> PlayerModel::roleNames() const
 {

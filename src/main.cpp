@@ -38,25 +38,11 @@ int main(int argc, char* argv[])
     playerModel.addPlayer(
       QPlayer("dernier", "dernier", QString::fromStdString(getStringFromLevel(Level::Competitive))));
 
-    engine.rootContext()->setContextProperty("playerModel", &playerModel);
-
-    //      on expose l'object Room au qml, pour pouvoir connect le signal qml au
+    //      on expose l'object playerModel au qml, pour pouvoir connect le signal qml au
     //      slot cpp dans le qml
-    //      (onNewPlayerFormSaved.connect(room.newPlayerFormSaved); dans
+    //      (onNewPlayerFormSaved.connect(playerModel.newPlayerFormSaved); dans
     //      NewPlayerForm.qml)
-    engine.rootContext()->setContextProperty("room", &room);
-
-    //    std::array<Player, 4> table = {Player("un", "un", Level::competitive),
-    //    Player("un", "un", Level::competitive), Player("trois", "un",
-    //    Level::competitive), Player("un", "un", Level::competitive)};
-    //    // Table table1 = Table(Player("un", "un", Level::competitive),
-    //    Player("un", "un", Level::competitive), Player("un", "un",
-    //    Level::competitive), Player("un", "un", Level::competitive)); Table
-    //    table1 = Table(table);
-
-    //    room.addTable(table1);
-
-    //    room.displayTables();
+    engine.rootContext()->setContextProperty("playerModel", &playerModel);
 
     room.addNewPlayer(Player("neuf", "neuf", Level::Competitive));
 

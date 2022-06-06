@@ -18,7 +18,7 @@ ListView {
             required property string section
 
             Text {
-                text: parent.section
+                text: " " // parent.section
                 font.bold: true
                 font.pixelSize: 25
             }

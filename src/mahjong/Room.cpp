@@ -2,7 +2,6 @@
 #include <iostream>
 #include <vector>
 
-#include "mahjong/Player.hpp"
 #include "mahjong/Room.hpp"
 
 Room::Room(nlohmann::json players): m_nbOfPlayers(players.size())
@@ -117,41 +116,4 @@ nlohmann::json Room::getPlayersJson() const
         players.push_back(player.toJson());
     }
     return players;
-}
-
-void Room::addTable(Table table)
-{
-    m_tables.push_back(table);
-}
-
-void Room::displayTables() const
-{
-    for(int i = 0; i < (m_nbTableOf4 + m_nbTableOf3); i++)
-    {
-        for(int j = 0; j < 3; j++)
-        {
-            std::cout << m_tables.at(i).getPlayers().at(j).getName();
-            std::cout << " -- ";
-            //            if (j < 3) {
-            //                std::cout << " -- ";
-            //            }
-        }
-        std::cout << m_tables.at(i).getPlayers().at(4).getName();
-        std::cout << std::endl;
-    }
-}
-
-void Room::newPlayerFormSaved(QString firstName, QString lastName, QString level)
-{
-    if(firstName.isEmpty() || lastName.isEmpty())
-    {
-        emit newPlayerFormError();
-    }
-    else
-    {
-        addNewPlayer(Player(firstName.toStdString(), lastName.toStdString(), level.toStdString()));
-        emit newPlayerFormAdded();
-    }
-    std::cout << "newPlayer : " << firstName.toStdString() << " " << lastName.toStdString() << " "
-              << level.toStdString() << std::endl;
 }
