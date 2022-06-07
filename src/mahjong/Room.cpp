@@ -80,9 +80,9 @@ void Room::removePlayerFromId(int id)
 {
     std::vector<Player>::iterator iterator = searchPlayerFromId(id);
 
-    std::cout << "iterator : " << iterator->toJsonFull() << std::endl;
     if(iterator != m_players.end())
     {
+        std::cout << "iterator : " << iterator->toJsonFull() << std::endl;
         m_players.erase(iterator);
         m_nbOfPlayers--;
         determineNumberTables();
