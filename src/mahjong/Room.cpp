@@ -10,6 +10,8 @@ Room::Room(nlohmann::json players): m_nbOfPlayers(players.size())
     determineNumberTables();
 }
 
+// ### Manage Players ###
+
 void Room::createPlayersFromJson(nlohmann::json players)
 {
     for(auto& player: players)
@@ -103,10 +105,42 @@ void Room::removePlayerFromIndex(int id)
     }
 }
 
+// ### Manage Games ###
+
+void Room::generateRandomTables()
+{
+    collectPlayingPlayers();
+}
+
+void Room::collectPlayingPlayers()
+{
+    foreach(Player player, m_players)
+    {
+        if(player.getIsPlaying())
+        {
+            m_playingPlayers.push_back(std::make_shared<Player>(player));
+        }
+    }
+}
+
+// ### Display ###
+
+void Room::displayPlayingPlayers() const
+{
+    foreach(auto player, m_playingPlayers)
+    {
+        std::cout << *player << std::endl;
+    }
+}
+
+void Room::displayTables() const {}
+
 void Room::displayAllPlayers() const
 {
     std::cout << getPlayersJson().dump(4) << std::endl;
 }
+
+// ### Getters ###
 
 nlohmann::json Room::getPlayersJson() const
 {

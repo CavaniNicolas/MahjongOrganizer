@@ -31,6 +31,10 @@ int main(int argc, char* argv[])
 
     std::cout << room.getNbOfPlayers() << std::endl;
 
+    room.generateRandomTables();
+    room.displayPlayingPlayers();
+    room.displayTables();
+
     pp.writePlayersInFile(room.getPlayersJson());
     // room.removePlayerFromId(32);
 
