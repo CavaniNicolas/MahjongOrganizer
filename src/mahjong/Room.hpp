@@ -9,28 +9,28 @@
 class Room
 {
   public:
-    Room(nlohmann::json players);
+    Room(nlohmann::json members);
     ~Room() = default;
 
-    // Manage Players
-    void addNewPlayer(Player player);
-    std::vector<Player>::iterator searchPlayerFromId(int id);
-    void removePlayerFromId(int id);
-    void removePlayerFromIndex(int id);
+    // Manage Members
+    void addNewMember(Player member);
+    std::vector<Player>::iterator searchMemberFromId(int id);
+    void removeMemberFromId(int id);
+    void removeMemberFromIndex(int id);
 
     // Manage Games
     void generateRandomTables();
 
     // Display
-    void displayPlayingPlayers() const;
+    void displayPlayers() const;
     void displayTables() const;
-    void displayAllPlayers() const;
+    void displayMembers() const;
 
     // Getters
-    nlohmann::json getPlayersJson() const;
-    int getNbOfPlayers() const
+    nlohmann::json getMembersJson() const;
+    int getNbOfMembers() const
     {
-        return m_nbOfPlayers;
+        return m_nbOfMembers;
     }
     int getNbTableOf4() const
     {
@@ -43,18 +43,18 @@ class Room
 
   private:
     // Manage Players
-    void createPlayersFromJson(nlohmann::json players);
+    void createMembersFromJson(nlohmann::json members);
 
     // Manage Games
-    void determineNumberTables();
-    void collectPlayingPlayers();
+    void determineNumberTables(int nbPlayers);
+    void collectPlayers();
 
     // Member attributes
-    int m_nbOfPlayers;
+    int m_nbOfMembers;
     int m_nbTableOf4;
     int m_nbTableOf3;
 
-    std::vector<Player> m_players;
-    std::vector<std::shared_ptr<Player>> m_playingPlayers;
+    std::vector<Player> m_members;
+    std::vector<std::shared_ptr<Player>> m_players;
     std::vector<std::array<std::shared_ptr<Player>, 4>> m_games;
 };

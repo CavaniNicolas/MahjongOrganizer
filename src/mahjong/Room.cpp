@@ -4,26 +4,25 @@
 
 #include "mahjong/Room.hpp"
 
-Room::Room(nlohmann::json players): m_nbOfPlayers(players.size())
+Room::Room(nlohmann::json members): m_nbOfMembers(members.size())
 {
-    createPlayersFromJson(players);
-    determineNumberTables();
+    createMembersFromJson(members);
 }
 
 // ### Manage Players ###
 
-void Room::createPlayersFromJson(nlohmann::json players)
+void Room::createMembersFromJson(nlohmann::json members)
 {
-    for(auto& player: players)
+    for(auto& member: members)
     {
-        m_players.push_back(Player(player));
+        m_members.push_back(Player(member));
     }
 }
 
-void Room::determineNumberTables()
+void Room::determineNumberTables(int nbPlayers)
 {
-    int playersLeft = m_nbOfPlayers % 4;
-    m_nbTableOf4 = m_nbOfPlayers / 4;
+    int playersLeft = nbPlayers % 4;
+    m_nbTableOf4 = nbPlayers / 4;
 
     switch(playersLeft)
     {
@@ -52,19 +51,18 @@ void Room::determineNumberTables()
     }
 }
 
-void Room::addNewPlayer(Player player)
+void Room::addNewMember(Player member)
 {
-    m_players.push_back(player);
-    m_nbOfPlayers++;
-    determineNumberTables();
+    m_members.push_back(member);
+    m_nbOfMembers++;
 }
 
-std::vector<Player>::iterator Room::searchPlayerFromId(int id) // const
+std::vector<Player>::iterator Room::searchMemberFromId(int id) // const
 {
-    std::vector<Player>::iterator iterator = m_players.begin();
+    std::vector<Player>::iterator iterator = m_members.begin();
     bool isFound = false;
 
-    while(!isFound && iterator != m_players.end())
+    while(!isFound && iterator != m_members.end())
     {
         if(iterator->getID() == id)
         {
@@ -78,30 +76,28 @@ std::vector<Player>::iterator Room::searchPlayerFromId(int id) // const
     return iterator;
 }
 
-void Room::removePlayerFromId(int id)
+void Room::removeMemberFromId(int id)
 {
-    std::vector<Player>::iterator iterator = searchPlayerFromId(id);
+    std::vector<Player>::iterator iterator = searchMemberFromId(id);
 
-    if(iterator != m_players.end())
+    if(iterator != m_members.end())
     {
         std::cout << "iterator : " << iterator->toJsonFull() << std::endl;
-        m_players.erase(iterator);
-        m_nbOfPlayers--;
-        determineNumberTables();
+        m_members.erase(iterator);
+        m_nbOfMembers--;
     }
 }
 
-void Room::removePlayerFromIndex(int id)
+void Room::removeMemberFromIndex(int id)
 {
-    if(id >= m_players.size())
+    if(id >= m_members.size())
     {
         std::cout << "throw out of bound exception" << std::endl;
     }
     else
     {
-        m_players.erase(m_players.begin() + id);
-        m_nbOfPlayers--;
-        determineNumberTables();
+        m_members.erase(m_members.begin() + id);
+        m_nbOfMembers--;
     }
 }
 
@@ -109,25 +105,26 @@ void Room::removePlayerFromIndex(int id)
 
 void Room::generateRandomTables()
 {
-    collectPlayingPlayers();
+    collectPlayers();
+    determineNumberTables(m_players.size());
 }
 
-void Room::collectPlayingPlayers()
+void Room::collectPlayers()
 {
-    foreach(Player player, m_players)
+    foreach(Player player, m_members)
     {
         if(player.getIsPlaying())
         {
-            m_playingPlayers.push_back(std::make_shared<Player>(player));
+            m_players.push_back(std::make_shared<Player>(player));
         }
     }
 }
 
 // ### Display ###
 
-void Room::displayPlayingPlayers() const
+void Room::displayPlayers() const
 {
-    foreach(auto player, m_playingPlayers)
+    foreach(auto player, m_players)
     {
         std::cout << *player << std::endl;
     }
@@ -135,19 +132,19 @@ void Room::displayPlayingPlayers() const
 
 void Room::displayTables() const {}
 
-void Room::displayAllPlayers() const
+void Room::displayMembers() const
 {
-    std::cout << getPlayersJson().dump(4) << std::endl;
+    std::cout << getMembersJson().dump(4) << std::endl;
 }
 
 // ### Getters ###
 
-nlohmann::json Room::getPlayersJson() const
+nlohmann::json Room::getMembersJson() const
 {
-    nlohmann::json players;
-    for(auto& player: m_players)
+    nlohmann::json members;
+    for(auto& member: m_members)
     {
-        players.push_back(player.toJson());
+        members.push_back(member.toJson());
     }
-    return players;
+    return members;
 }

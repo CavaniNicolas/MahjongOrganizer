@@ -15,28 +15,28 @@ int main(int argc, char* argv[])
     PlayerParser pp(std::string(RESOURCE_PATH) + "mahjong.json");
 
     Room room(pp.readPlayersFromFile());
-    // room.displayAllPlayers();
+    //    room.displayMembers();
 
-    //    room.addNewPlayer(Player("un", "un", Level::Beginner));
-    //    room.addNewPlayer(Player("deux", "deux", Level::Leisure));
-    //    room.addNewPlayer(Player("trois", "trois", Level::Competitive));
-    //    room.addNewPlayer(Player("quatre", "quatre", Level::Beginner));
-    //    room.addNewPlayer(Player("cinq", "cinq", Level::Leisure));
-    //    room.addNewPlayer(Player("six", "six", Level::Competitive));
-    //    room.addNewPlayer(Player("sept", "sept", Level::Beginner));
-    //    room.addNewPlayer(Player("huit", "huit", Level::Leisure));
-    //    room.addNewPlayer(Player("neuf", "neuf", Level::Competitive));
+    //    room.addNewMember(Player("un", "un", Level::Beginner));
+    //    room.addNewMember(Player("deux", "deux", Level::Leisure));
+    //    room.addNewMember(Player("trois", "trois", Level::Competitive));
+    //    room.addNewMember(Player("quatre", "quatre", Level::Beginner));
+    //    room.addNewMember(Player("cinq", "cinq", Level::Leisure));
+    //    room.addNewMember(Player("six", "six", Level::Competitive));
+    //    room.addNewMember(Player("sept", "sept", Level::Beginner));
+    //    room.addNewMember(Player("huit", "huit", Level::Leisure));
+    //    room.addNewMember(Player("neuf", "neuf", Level::Competitive));
 
-    // room.removePlayerFromIndex(room.getNbOfPlayers() - 1);
+    //    room.removeMemberFromIndex(room.getNbOfMembers() - 1);
 
-    std::cout << room.getNbOfPlayers() << std::endl;
+    std::cout << room.getNbOfMembers() << std::endl;
 
     room.generateRandomTables();
-    room.displayPlayingPlayers();
+    room.displayPlayers();
     room.displayTables();
 
-    pp.writePlayersInFile(room.getPlayersJson());
-    // room.removePlayerFromId(32);
+    pp.writePlayersInFile(room.getMembersJson());
+    //    room.removeMemberFromId(32);
 
     return 0;
 }
