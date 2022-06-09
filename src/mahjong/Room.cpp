@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <random>
 #include <vector>
 
 #include "mahjong/Room.hpp"
@@ -103,10 +104,34 @@ void Room::removeMemberFromIndex(int id)
 
 // ### Manage Games ###
 
-void Room::generateRandomTables()
+void Room::setUpGame()
 {
     collectPlayers();
     determineNumberTables(m_players.size());
+    generateRandomTables();
+}
+
+void Room::generateRandomTables()
+{
+    // get a time based random seed
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    shuffle(m_players.begin(), m_players.end(), std::default_random_engine(seed));
+
+    std::vector<std::shared_ptr<Player>> beginner;
+    std::vector<std::shared_ptr<Player>> leisure;
+    std::vector<std::shared_ptr<Player>> competitive;
+    foreach(auto player, m_players)
+    {
+        switch(player->getLevel())
+        {
+            case Level::Beginner: beginner.push_back(player); break;
+            case Level::Leisure: leisure.push_back(player); break;
+            case Level::Competitive: competitive.push_back(player); break;
+            default: break;
+        }
+    }
+
+    // fillTablesWithPlayers(beginner);
 }
 
 void Room::collectPlayers()

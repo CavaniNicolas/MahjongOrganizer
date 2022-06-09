@@ -19,7 +19,7 @@ class Room
     void removeMemberFromIndex(int id);
 
     // Manage Games
-    void generateRandomTables();
+    void setUpGame();
 
     // Display
     void displayPlayers() const;
@@ -46,8 +46,9 @@ class Room
     void createMembersFromJson(nlohmann::json members);
 
     // Manage Games
-    void determineNumberTables(int nbPlayers);
     void collectPlayers();
+    void generateRandomTables();
+    void determineNumberTables(int nbPlayers);
 
     // Member attributes
     int m_nbOfMembers;

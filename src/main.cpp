@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 
     std::cout << room.getNbOfMembers() << std::endl;
 
-    room.generateRandomTables();
+    room.setUpGame();
     room.displayPlayers();
     room.displayTables();
 
