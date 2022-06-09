@@ -5,7 +5,7 @@
 
 #include "mahjong/Room.hpp"
 
-Room::Room(nlohmann::json members): m_nbOfMembers(members.size())
+Room::Room(nlohmann::json members): m_nbOfMembers(members.size()), m_numGame(1)
 {
     createMembersFromJson(members);
 }
@@ -108,6 +108,10 @@ void Room::setUpGame()
 {
     collectPlayers();
     determineNumberTables(m_players.size());
+
+    Game game(m_nbTableOf4 + m_nbTableOf3);
+    m_games.push_back(game);
+
     generateRandomTables();
 }
 
@@ -131,7 +135,16 @@ void Room::generateRandomTables()
         }
     }
 
-    // fillTablesWithPlayers(beginner);
+    fillTablesWithPlayers(beginner, leisure, competitive);
+}
+
+void Room::fillTablesWithPlayers(std::vector<std::shared_ptr<Player>> beginner,
+                                 std::vector<std::shared_ptr<Player>> leisure,
+                                 std::vector<std::shared_ptr<Player>> competitive)
+{
+    m_games[m_numGame - 1].fillTablesWithPlayers(beginner);
+    m_games[m_numGame - 1].fillTablesWithPlayers(leisure);
+    m_games[m_numGame - 1].fillTablesWithPlayers(competitive);
 }
 
 void Room::collectPlayers()

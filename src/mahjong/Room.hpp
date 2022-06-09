@@ -4,6 +4,7 @@
 #include <QObject>
 #include <memory>
 
+#include "mahjong/Game.hpp"
 #include "mahjong/Player.hpp"
 
 class Room
@@ -49,6 +50,9 @@ class Room
     void collectPlayers();
     void generateRandomTables();
     void determineNumberTables(int nbPlayers);
+    void fillTablesWithPlayers(std::vector<std::shared_ptr<Player>> beginner,
+                               std::vector<std::shared_ptr<Player>> leisure,
+                               std::vector<std::shared_ptr<Player>> competitive);
 
     // Member attributes
     int m_nbOfMembers;
@@ -57,5 +61,7 @@ class Room
 
     std::vector<Player> m_members;
     std::vector<std::shared_ptr<Player>> m_players;
-    std::vector<std::array<std::shared_ptr<Player>, 4>> m_games;
+
+    int m_numGame;
+    std::vector<Game> m_games;
 };
