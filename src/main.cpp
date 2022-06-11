@@ -32,8 +32,9 @@ int main(int argc, char* argv[])
     std::cout << room.getNbOfMembers() << std::endl;
 
     room.setUpGame();
-    room.displayPlayers();
-    room.displayTables();
+    // room.displayPlayers();
+    std::cout << std::endl;
+    room.displayTablesFromGame(0);
 
     pp.writePlayersInFile(room.getMembersJson());
     //    room.removeMemberFromId(32);

@@ -24,7 +24,7 @@ class Room
 
     // Display
     void displayPlayers() const;
-    void displayTables() const;
+    void displayTablesFromGame(int numGame) const;
     void displayMembers() const;
 
     // Getters

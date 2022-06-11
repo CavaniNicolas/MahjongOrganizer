@@ -142,9 +142,7 @@ void Room::fillTablesWithPlayers(std::vector<std::shared_ptr<Player>> beginner,
                                  std::vector<std::shared_ptr<Player>> leisure,
                                  std::vector<std::shared_ptr<Player>> competitive)
 {
-    m_games[m_numGame - 1].fillTablesWithPlayers(beginner);
-    m_games[m_numGame - 1].fillTablesWithPlayers(leisure);
-    m_games[m_numGame - 1].fillTablesWithPlayers(competitive);
+    m_games[m_numGame - 1].fillTables(beginner, leisure, competitive);
 }
 
 void Room::collectPlayers()
@@ -168,7 +166,10 @@ void Room::displayPlayers() const
     }
 }
 
-void Room::displayTables() const {}
+void Room::displayTablesFromGame(int numGame) const
+{
+    m_games[numGame].displayTables();
+}
 
 void Room::displayMembers() const
 {
