@@ -1,6 +1,4 @@
 
-#include <sstream>
-
 #include "mahjong/Player.hpp"
 
 int Player::m_playerNum = 0;
@@ -37,6 +35,7 @@ Player::Player(std::string name, std::string surname, Level level): m_name(name)
 {
     m_playerNum++;
     m_playerID = m_playerNum;
+    m_isPlaying = true;
 }
 
 Player::Player(std::string name, std::string surname, std::string level):
@@ -66,6 +65,12 @@ Player& Player::operator=(Player const& player)
         m_playerID = player.m_playerID;
     }
     return *this;
+}
+
+std::ostream& operator<<(std::ostream& os, Player const& player)
+{
+    os << player.getPlayerName() << " : " << getStringFromLevel(player.getLevel());
+    return os;
 }
 
 std::string Player::getPlayerName() const
@@ -98,6 +103,16 @@ std::string Player::getLevel_str() const
 int Player::getID() const
 {
     return m_playerID;
+}
+
+bool Player::getIsPlaying() const
+{
+    return m_isPlaying;
+}
+
+void Player::setIsPlaying(bool value)
+{
+    m_isPlaying = value;
 }
 
 nlohmann::json Player::toJson() const

@@ -2,6 +2,8 @@
 #pragma once
 
 #include <mahjong/json.hpp>
+#include <iostream>
+#include <sstream>
 #include <string>
 
 enum class Level
@@ -30,11 +32,14 @@ class Player
     Level getLevel() const;
     std::string getLevel_str() const;
     int getID() const;
+    bool getIsPlaying() const;
+    void setIsPlaying(bool value);
 
     nlohmann::json toJson() const;
     nlohmann::json toJsonFull() const;
 
     Player& operator=(Player const& player);
+    friend std::ostream& operator<<(std::ostream& os, Player const& player);
 
   private:
     static int m_playerNum;
@@ -43,4 +48,5 @@ class Player
     std::string m_surname;
     Level m_level;
     int m_playerID;
+    bool m_isPlaying;
 };

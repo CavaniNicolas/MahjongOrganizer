@@ -1,27 +1,29 @@
 
 #include <iostream>
+#include <random>
 #include <vector>
 
 #include "mahjong/Room.hpp"
 
-Room::Room(nlohmann::json players): m_nbOfPlayers(players.size())
+Room::Room(nlohmann::json members): m_nbOfMembers(members.size()), m_numGame(1)
 {
-    createPlayersFromJson(players);
-    determineNumberTables();
+    createMembersFromJson(members);
 }
 
-void Room::createPlayersFromJson(nlohmann::json players)
+// ### Manage Players ###
+
+void Room::createMembersFromJson(nlohmann::json members)
 {
-    for(auto& player: players)
+    for(auto& member: members)
     {
-        m_players.push_back(Player(player));
+        m_members.push_back(Player(member));
     }
 }
 
-void Room::determineNumberTables()
+void Room::determineNumberTables(int nbPlayers)
 {
-    int playersLeft = m_nbOfPlayers % 4;
-    m_nbTableOf4 = m_nbOfPlayers / 4;
+    int playersLeft = nbPlayers % 4;
+    m_nbTableOf4 = nbPlayers / 4;
 
     switch(playersLeft)
     {
@@ -50,19 +52,18 @@ void Room::determineNumberTables()
     }
 }
 
-void Room::addNewPlayer(Player player)
+void Room::addNewMember(Player member)
 {
-    m_players.push_back(player);
-    m_nbOfPlayers++;
-    determineNumberTables();
+    m_members.push_back(member);
+    m_nbOfMembers++;
 }
 
-std::vector<Player>::iterator Room::searchPlayerFromId(int id) // const
+std::vector<Player>::iterator Room::searchMemberFromId(int id) // const
 {
-    std::vector<Player>::iterator iterator = m_players.begin();
+    std::vector<Player>::iterator iterator = m_members.begin();
     bool isFound = false;
 
-    while(!isFound && iterator != m_players.end())
+    while(!isFound && iterator != m_members.end())
     {
         if(iterator->getID() == id)
         {
@@ -76,44 +77,113 @@ std::vector<Player>::iterator Room::searchPlayerFromId(int id) // const
     return iterator;
 }
 
-void Room::removePlayerFromId(int id)
+void Room::removeMemberFromId(int id)
 {
-    std::vector<Player>::iterator iterator = searchPlayerFromId(id);
+    std::vector<Player>::iterator iterator = searchMemberFromId(id);
 
-    std::cout << "iterator : " << iterator->toJsonFull() << std::endl;
-    if(iterator != m_players.end())
+    if(iterator != m_members.end())
     {
-        m_players.erase(iterator);
-        m_nbOfPlayers--;
-        determineNumberTables();
+        std::cout << "iterator : " << iterator->toJsonFull() << std::endl;
+        m_members.erase(iterator);
+        m_nbOfMembers--;
     }
 }
 
-void Room::removePlayerFromIndex(int id)
+void Room::removeMemberFromIndex(int id)
 {
-    if(id >= m_players.size())
+    if(id >= m_members.size())
     {
         std::cout << "throw out of bound exception" << std::endl;
     }
     else
     {
-        m_players.erase(m_players.begin() + id);
-        m_nbOfPlayers--;
-        determineNumberTables();
+        m_members.erase(m_members.begin() + id);
+        m_nbOfMembers--;
     }
 }
 
-void Room::displayAllPlayers() const
+// ### Manage Games ###
+
+void Room::setUpGame()
 {
-    std::cout << getPlayersJson().dump(4) << std::endl;
+    collectPlayers();
+    determineNumberTables(m_players.size());
+
+    Game game(m_nbTableOf4 + m_nbTableOf3);
+    m_games.push_back(game);
+
+    generateRandomTables();
 }
 
-nlohmann::json Room::getPlayersJson() const
+void Room::generateRandomTables()
 {
-    nlohmann::json players;
-    for(auto& player: m_players)
+    // get a time based random seed
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    shuffle(m_players.begin(), m_players.end(), std::default_random_engine(seed));
+
+    std::vector<std::shared_ptr<Player>> beginner;
+    std::vector<std::shared_ptr<Player>> leisure;
+    std::vector<std::shared_ptr<Player>> competitive;
+    foreach(auto player, m_players)
     {
-        players.push_back(player.toJson());
+        switch(player->getLevel())
+        {
+            case Level::Beginner: beginner.push_back(player); break;
+            case Level::Leisure: leisure.push_back(player); break;
+            case Level::Competitive: competitive.push_back(player); break;
+            default: break;
+        }
     }
-    return players;
+
+    fillTablesWithPlayers(beginner, leisure, competitive);
+}
+
+void Room::fillTablesWithPlayers(std::vector<std::shared_ptr<Player>> beginner,
+                                 std::vector<std::shared_ptr<Player>> leisure,
+                                 std::vector<std::shared_ptr<Player>> competitive)
+{
+    m_games[m_numGame - 1].fillTables(beginner, leisure, competitive);
+}
+
+void Room::collectPlayers()
+{
+    foreach(Player player, m_members)
+    {
+        if(player.getIsPlaying())
+        {
+            m_players.push_back(std::make_shared<Player>(player));
+        }
+    }
+}
+
+// ### Display ###
+
+void Room::displayPlayers() const
+{
+    foreach(auto player, m_players)
+    {
+        std::cout << *player << std::endl;
+    }
+}
+
+void Room::displayTablesFromGame(int numGame) const
+{
+    m_games[numGame].displayTables();
+}
+
+void Room::displayMembers() const
+{
+    std::cout << getMembersJson().dump(4) << std::endl;
+}
+
+// ### Getters ###
+
+nlohmann::json Room::getMembersJson() const
+{
+    nlohmann::json members;
+    for(auto& member: m_members)
+    {
+        members.push_back(member.toJson());
+    }
+    return members;
 }
