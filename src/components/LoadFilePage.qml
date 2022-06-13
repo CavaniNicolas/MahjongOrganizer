@@ -2,9 +2,12 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.1
+import QtQuick.Dialogs 1.0
 
 Item
 {
+    id: loadFilePage
+
     anchors.fill: parent
 
     property int fontSize: 20
@@ -20,7 +23,7 @@ Item
         color: "lightgrey"
 
         Text {
-            id: text
+            id: fileUrlText
             anchors.centerIn: parent
             text: qsTr("fileUrl")
             font.pixelSize: fontSize
@@ -63,6 +66,10 @@ Item
                         color: parent.down ? "orange" :
                                 (parent.hovered ? "#d6d6d6" : "#f6f6f6")
                 }
+
+                onClicked: {
+                    fileDialog.open()
+                }
             }
             Button
             {
@@ -76,6 +83,22 @@ Item
                                 (parent.hovered ? "#d6d6d6" : "#f6f6f6")
                 }
             }
+        }
+
+        FileDialog {
+            id: fileDialog
+            title: "Please choose a file"
+            folder: shortcuts.home
+            onAccepted: {
+                console.log("You chose: " + fileDialog.fileUrls)
+                fileUrlText.text = fileDialog.fileUrls.toString()
+                close()
+            }
+            onRejected: {
+                console.log("Canceled")
+                close()
+            }
+            Component.onCompleted: visible = false
         }
     }
 }
