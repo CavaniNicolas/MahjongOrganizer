@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>components/main.qml</file>
+        <file>components/MahjongApp.qml</file>
         <file>components/PlayersDelegate.qml</file>
         <file>components/NewPlayerForm.qml</file>
         <file>components/DialogItems.qml</file>
