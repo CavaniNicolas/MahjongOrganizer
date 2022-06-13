@@ -46,6 +46,6 @@ ApplicationWindow {
             top: parent.top
             bottom: parent.bottom
         }
-        source: "MahjongApp.qml"
+        source: "LoadFilePage.qml"
     }
 }
