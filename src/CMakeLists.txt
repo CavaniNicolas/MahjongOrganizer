@@ -5,8 +5,9 @@ set(MAHJONG_EXE_NAME mahjong)
 
 set(SOURCES
 	main.cpp
+        mahjong/MahjongApp.cpp
         mahjong/Game.cpp
-	mahjong/Player.cpp
+        mahjong/Player.cpp
         mahjong/PlayerModel.cpp
 	mahjong/PlayerParser.cpp
 	mahjong/Room.cpp
@@ -14,6 +15,7 @@ set(SOURCES
 
 set(HEADERS
 	mahjong/json.hpp
+        mahjong/MahjongApp.hpp
         mahjong/Game.hpp
         mahjong/Player.hpp
         mahjong/PlayerModel.hpp
