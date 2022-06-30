@@ -11,6 +11,7 @@ class Room
 {
   public:
     Room(nlohmann::json members);
+    Room(const Room& room);
     ~Room() = default;
 
     // Manage Members
