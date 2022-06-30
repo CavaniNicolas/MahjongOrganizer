@@ -14,9 +14,10 @@ class MahjongApp
     void loadFile();
     void getPlayersFromFile();
 
-    void addDefaultPlayers();
-
   private:
+    void fillModel();
+    void addDefaultPlayersToModel();
+
     PlayerParser m_playerParser;
     Room m_room;
     std::shared_ptr<PlayerModel> m_playerModel;

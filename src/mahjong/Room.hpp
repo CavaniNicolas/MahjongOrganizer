@@ -30,6 +30,10 @@ class Room
 
     // Getters
     nlohmann::json getMembersJson() const;
+    std::vector<Player> getMembers() const
+    {
+        return m_members;
+    }
     int getNbOfMembers() const
     {
         return m_nbOfMembers;

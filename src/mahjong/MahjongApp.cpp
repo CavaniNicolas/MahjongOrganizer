@@ -19,7 +19,7 @@ MahjongApp::MahjongApp(int& argc, char** argv):
     if(!engine.rootObjects().isEmpty())
     {
         m_playerModel = std::make_shared<PlayerModel>();
-        addDefaultPlayers();
+        fillModel();
 
         //          on expose l'object playerModel au qml, pour pouvoir connect le signal qml au
         //          slot cpp dans le qml
@@ -31,7 +31,17 @@ MahjongApp::MahjongApp(int& argc, char** argv):
     }
 }
 
-void MahjongApp::addDefaultPlayers()
+void MahjongApp::fillModel()
+{
+    foreach(auto const& member, m_room.getMembers())
+    {
+        m_playerModel->addPlayer(QPlayer(QString::fromStdString(member.getName()),
+                                         QString::fromStdString(member.getSurname()),
+                                         QString::fromStdString(getStringFromLevel(member.getLevel()))));
+    }
+}
+
+void MahjongApp::addDefaultPlayersToModel()
 {
     m_playerModel->addPlayer(QPlayer("jean", "dupont", QString::fromStdString(getStringFromLevel(Level::Beginner))));
     m_playerModel->addPlayer(QPlayer("will", "smith", QString::fromStdString(getStringFromLevel(Level::Leisure))));
