@@ -13,6 +13,11 @@ class PlayerParser
     nlohmann::json readPlayersFromFile();
     void writePlayersInFile(nlohmann::json players);
 
+    void setFilename(std::string filename)
+    {
+        m_filename = filename;
+    }
+
   private:
     std::string m_filename;
 };

@@ -25,7 +25,7 @@ Item
         Text {
             id: fileUrlText
             anchors.centerIn: parent
-            text: qsTr("fileUrl")
+            text: mahjongApp.fileURL //qsTr("fileUrl")
             font.pixelSize: fontSize
         }
     }
@@ -53,6 +53,10 @@ Item
                 background: Rectangle {
                         color: parent.down ? "orange" :
                                 (parent.hovered ? "#d6d6d6" : "#f6f6f6")
+                }
+                onClicked:
+                {
+                    mahjongApp.useDefaultFile()
                 }
             }
 
@@ -90,8 +94,8 @@ Item
             title: "Please choose a file"
             folder: shortcuts.home
             onAccepted: {
-                console.log("You chose: " + fileDialog.fileUrls)
-                fileUrlText.text = fileDialog.fileUrls.toString()
+                //console.log("You chose: " + fileDialog.fileUrls)
+                mahjongApp.fileURL = fileDialog.fileUrl
                 close()
             }
             onRejected: {
