@@ -5,7 +5,9 @@
 
 #include "mahjong/Room.hpp"
 
-Room::Room(nlohmann::json members): m_nbOfMembers(members.size()), m_numGame(1)
+Room::Room(): m_nbOfMembers(0), m_numGame(1) {}
+
+Room::Room(nlohmann::json members): Room::Room()
 {
     createMembersFromJson(members);
 }
@@ -34,6 +36,7 @@ void Room::createMembersFromJson(nlohmann::json members)
     {
         m_members.push_back(Player(member));
     }
+    m_nbOfMembers = m_members.size();
 }
 
 void Room::determineNumberTables(int nbPlayers)

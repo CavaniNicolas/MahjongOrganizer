@@ -8,7 +8,7 @@
 MahjongApp::MahjongApp(int& argc, char** argv):
   m_fileURL(QString::fromStdString(std::string(RESOURCE_PATH) + "mahjong.json")),
   m_playerParser(PlayerParser(std::string(RESOURCE_PATH) + "mahjong.json")),
-  m_room(Room(m_playerParser.readPlayersFromFile()))
+  m_room(Room())
 {
     useDefaultFile();
 
@@ -22,7 +22,6 @@ MahjongApp::MahjongApp(int& argc, char** argv):
     if(!engine.rootObjects().isEmpty())
     {
         m_playerModel = std::make_shared<PlayerModel>();
-        fillModel();
 
         //          on expose l'object playerModel au qml, pour pouvoir connect le signal qml au
         //          slot cpp dans le qml
@@ -40,10 +39,12 @@ void MahjongApp::setFileURL(const QString& fileURL)
 {
     if(fileURL != m_fileURL)
     {
-        std::cout << "new file selected : " << fileURL.toStdString() << std::endl;
+        QUrl url(fileURL);
 
-        m_fileURL = fileURL;
-        m_playerParser.setFilename(fileURL.toStdString());
+        std::cout << "new file selected : " << url.toLocalFile().toStdString() << std::endl;
+
+        m_fileURL = url.toLocalFile();
+        m_playerParser.setFilename(url.toLocalFile().toStdString());
         emit fileURLChanged();
     }
 }
@@ -55,6 +56,12 @@ void MahjongApp::useDefaultFile()
 
 void MahjongApp::loadFile()
 {
+    // read members from file
+    nlohmann::json members = m_playerParser.readPlayersFromFile();
+    // fill room with json
+    m_room.createMembersFromJson(members);
+    // fill model with members from room
+    fillModel();
 }
 
 void MahjongApp::fillModel()

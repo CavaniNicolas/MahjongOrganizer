@@ -25,8 +25,10 @@ Item
         Text {
             id: fileUrlText
             anchors.centerIn: parent
+            width: parent.width - 10
             text: mahjongApp.fileURL //qsTr("fileUrl")
             font.pixelSize: fontSize
+            elide: Text.ElideLeft
         }
     }
     Rectangle
@@ -80,8 +82,10 @@ Item
                 id: loadButton
                 text: "Load file"
                 font.pixelSize: fontSize
-                onClicked: mainLoader.source = "MahjongApp.qml"
-
+                onClicked: {
+                    mahjongApp.loadFile()
+                    mainLoader.source = "MahjongApp.qml"
+                }
                 background: Rectangle {
                         color: parent.down ? "orange" :
                                 (parent.hovered ? "#d6d6d6" : "#f6f6f6")
@@ -89,12 +93,14 @@ Item
             }
         }
 
+        //remove file:///
         FileDialog {
             id: fileDialog
             title: "Please choose a file"
             folder: shortcuts.home
+            nameFilters: [ "JSON files (*json)", "All files (*)" ]
             onAccepted: {
-                //console.log("You chose: " + fileDialog.fileUrls)
+                //console.log("You chose: " + fileDialog.fileUrl)
                 mahjongApp.fileURL = fileDialog.fileUrl
                 close()
             }
