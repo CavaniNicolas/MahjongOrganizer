@@ -97,7 +97,7 @@ Item
         FileDialog {
             id: fileDialog
             title: "Please choose a file"
-            folder: shortcuts.home
+            folder: shortcuts.documents
             nameFilters: [ "JSON files (*json)", "All files (*)" ]
             onAccepted: {
                 //console.log("You chose: " + fileDialog.fileUrl)
