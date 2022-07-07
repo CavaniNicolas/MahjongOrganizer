@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include <QAbstractListModel>
 #include <QList>
 #include <QStringList>
