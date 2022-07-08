@@ -51,7 +51,7 @@ void MahjongApp::setFileURL(const QString& fileURL)
 
 void MahjongApp::useDefaultFile()
 {
-    setFileURL(QString::fromStdString(std::string(RESOURCE_PATH) + "mahjong.json"));
+    setFileURL(QString::fromStdString("file:///" + std::string(RESOURCE_PATH) + "mahjong.json"));
 }
 
 void MahjongApp::loadFile()
