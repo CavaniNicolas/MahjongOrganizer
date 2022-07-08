@@ -2,6 +2,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <memory>
 
 #include "mahjong/MahjongApp.hpp"
 
@@ -62,6 +63,47 @@ void MahjongApp::loadFile()
     m_room.createMembersFromJson(members);
     // fill model with members from room
     fillModel();
+}
+
+void MahjongApp::setUpGame()
+{
+    m_room.setUpGame();
+    updateQPlayersTable();
+}
+
+void MahjongApp::updateQPlayersTable()
+{
+    bool playerFound = false;
+    int playerId;
+    std::shared_ptr<Player> player;
+    std::vector<std::shared_ptr<Player>> players = m_room.getPlayers();
+
+    QList<QPlayer> qPlayers = m_playerModel->getPlayers();
+
+    for(int i = 0; i < qPlayers.size(); ++i)
+    {
+        QPlayer qPlayer(qPlayers[i]);
+
+        playerId = 0;
+        while(!playerFound && playerId < players.size())
+        {
+            player = players[playerId];
+            if(qPlayer.getName().toStdString() == player->getName() &&
+               qPlayer.getSurname().toStdString() == player->getSurname())
+            {
+                // cannot do this as qPlayer and qPlayers are copied objects
+                // qPlayer.setTable(player->getTable()); // qPlayers[i].setTable(player->getTable());
+                m_playerModel->setTableToQPlayerAtID(player->getTable(), i);
+
+                playerFound = true;
+            }
+            else
+            {
+                playerId++;
+            }
+        }
+        playerFound = false;
+    }
 }
 
 void MahjongApp::fillModel()

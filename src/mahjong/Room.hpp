@@ -37,6 +37,10 @@ class Room
     {
         return m_members;
     }
+    std::vector<std::shared_ptr<Player>> getPlayers() const
+    {
+        return m_players;
+    }
     int getNbOfMembers() const
     {
         return m_nbOfMembers;

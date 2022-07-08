@@ -30,10 +30,12 @@ class MahjongApp : public QObject
   public slots:
     void useDefaultFile();
     void loadFile();
+    void setUpGame();
 
   private:
     void fillModel();
     void addDefaultPlayersToModel();
+    void updateQPlayersTable();
 
     PlayerParser m_playerParser;
     Room m_room;

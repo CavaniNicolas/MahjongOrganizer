@@ -7,5 +7,8 @@
         <file>components/NewPlayerForm.qml</file>
         <file>components/DialogItems.qml</file>
         <file>components/PlayersView.qml</file>
+        <file>components/TablesDelegate.qml</file>
+        <file>components/TablesPage.qml</file>
+        <file>components/TablesView.qml</file>
     </qresource>
 </RCC>

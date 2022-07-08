@@ -33,7 +33,10 @@ class Player
     std::string getLevel_str() const;
     int getID() const;
     bool getIsPlaying() const;
+    int getTable() const;
+
     void setIsPlaying(bool value);
+    void setTable(int table);
 
     nlohmann::json toJson() const;
     nlohmann::json toJsonFull() const;
@@ -49,4 +52,6 @@ class Player
     Level m_level;
     int m_playerID;
     bool m_isPlaying;
+
+    int m_table;
 };
