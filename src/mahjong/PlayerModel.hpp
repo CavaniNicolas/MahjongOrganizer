@@ -53,7 +53,8 @@ class PlayerModel : public QAbstractListModel
         Level,
         Name,
         Surname,
-        IsPlaying
+        IsPlaying,
+        Table
     };
 
     // class
@@ -61,6 +62,7 @@ class PlayerModel : public QAbstractListModel
 
     // manage QPlayers
     QList<QPlayer>::iterator searchLastPlayerSameLevelIndex(const QPlayer& player);
+    QList<QPlayer>::iterator searchPlayerTableOrder(const QPlayer& player);
     void addPlayer(const QPlayer& player);
 
   public slots:
@@ -78,12 +80,15 @@ class PlayerModel : public QAbstractListModel
         return m_players;
     }
     void setTableToQPlayerAtID(int table, int id);
+    void setOrderPlayersBy(OrderPlayersBy orderPlayersBy);
 
     // QT override
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
     // Qt::ItemFlags flags(const QModelIndex& index) const override;
+    void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) override;
+
   protected:
     QHash<int, QByteArray> roleNames() const override;
 

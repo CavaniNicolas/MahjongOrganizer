@@ -97,6 +97,26 @@ QList<QPlayer>::iterator PlayerModel::searchLastPlayerSameLevelIndex(const QPlay
     return iterator;
 }
 
+QList<QPlayer>::iterator PlayerModel::searchPlayerTableOrder(const QPlayer& player)
+{
+    QList<QPlayer>::iterator iterator = m_players.begin();
+    bool isFound = false;
+    int table = player.getTable();
+
+    while(!isFound && iterator != m_players.end())
+    {
+        if(iterator->getTable() >= table)
+        {
+            isFound = true;
+        }
+        else
+        {
+            iterator++;
+        }
+    }
+    return iterator;
+}
+
 void PlayerModel::addPlayer(const QPlayer& player)
 {
     beginResetModel();
@@ -155,6 +175,11 @@ void PlayerModel::checkPlayer(int playerIndex, int state)
 void PlayerModel::setTableToQPlayerAtID(int table, int id)
 {
     m_players[id].setTable(table);
+}
+
+void PlayerModel::setOrderPlayersBy(OrderPlayersBy orderPlayersBy)
+{
+    m_orderPlayersBy = orderPlayersBy;
 }
 
 // ****** QT override ****** //
@@ -225,4 +250,34 @@ QHash<int, QByteArray> PlayerModel::roleNames() const
     roles[IsPlayingRole] = "isPlaying";
     roles[TableRole] = "table";
     return roles;
+}
+
+void PlayerModel::sort(int column, Qt::SortOrder order)
+{
+    QList<QPlayer> playersCopy = m_players;
+    m_players.erase(m_players.begin() + 1, m_players.end());
+
+    beginResetModel();
+
+    switch(m_orderPlayersBy)
+    {
+        case OrderPlayersBy::Table:
+
+            for(int i = 1; i < playersCopy.count(); ++i)
+            {
+                QList<QPlayer>::iterator iteratorBefore = searchPlayerTableOrder(playersCopy[i]);
+
+                //                if(iteratorBefore != m_players.end())
+                //                {
+                //                    std::cout << "player BEFORE : " << iteratorBefore->getName().toStdString()
+                //                              << iteratorBefore->getSurname().toStdString() << std::endl;
+                //                }
+
+                m_players.insert(iteratorBefore, playersCopy[i]);
+            }
+
+            break;
+        default: break;
+    }
+    endResetModel();
 }

@@ -104,6 +104,9 @@ void MahjongApp::updateQPlayersTable()
         }
         playerFound = false;
     }
+
+    m_playerModel->setOrderPlayersBy(PlayerModel::OrderPlayersBy::Table);
+    m_playerModel->sort(0);
 }
 
 void MahjongApp::fillModel()
