@@ -113,9 +113,9 @@ void MahjongApp::fillModel()
 {
     foreach(auto const& member, m_room.getMembers())
     {
-        m_playerModel->addPlayer(QPlayer(QString::fromStdString(member.getName()),
-                                         QString::fromStdString(member.getSurname()),
-                                         QString::fromStdString(getStringFromLevel(member.getLevel()))));
+        m_playerModel->addPlayer(QPlayer(QString::fromStdString(member->getName()),
+                                         QString::fromStdString(member->getSurname()),
+                                         QString::fromStdString(getStringFromLevel(member->getLevel()))));
     }
 }
 

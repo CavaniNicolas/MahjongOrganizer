@@ -34,7 +34,7 @@ void Room::createMembersFromJson(nlohmann::json members)
 {
     for(auto& member: members)
     {
-        m_members.push_back(Player(member));
+        m_members.push_back(std::make_shared<Player>(member));
     }
     m_nbOfMembers = m_members.size();
 }
@@ -71,20 +71,20 @@ void Room::determineNumberTables(int nbPlayers)
     }
 }
 
-void Room::addNewMember(Player member)
+void Room::addNewMember(std::shared_ptr<Player> member)
 {
     m_members.push_back(member);
     m_nbOfMembers++;
 }
 
-std::vector<Player>::iterator Room::searchMemberFromId(int id) // const
+std::vector<std::shared_ptr<Player>>::iterator Room::searchMemberFromId(int id) // const
 {
-    std::vector<Player>::iterator iterator = m_members.begin();
+    std::vector<std::shared_ptr<Player>>::iterator iterator = m_members.begin();
     bool isFound = false;
 
     while(!isFound && iterator != m_members.end())
     {
-        if(iterator->getID() == id)
+        if((*iterator)->getID() == id)
         {
             isFound = true;
         }
@@ -98,11 +98,11 @@ std::vector<Player>::iterator Room::searchMemberFromId(int id) // const
 
 void Room::removeMemberFromId(int id)
 {
-    std::vector<Player>::iterator iterator = searchMemberFromId(id);
+    std::vector<std::shared_ptr<Player>>::iterator iterator = searchMemberFromId(id);
 
     if(iterator != m_members.end())
     {
-        std::cout << "iterator : " << iterator->toJsonFull() << std::endl;
+        std::cout << "iterator : " << (*iterator)->toJsonFull() << std::endl;
         m_members.erase(iterator);
         m_nbOfMembers--;
     }
@@ -166,11 +166,11 @@ void Room::fillTablesWithPlayers(std::vector<std::shared_ptr<Player>> beginner,
 
 void Room::collectPlayers()
 {
-    foreach(Player player, m_members)
+    foreach(auto const& player, m_members)
     {
-        if(player.getIsPlaying())
+        if(player->getIsPlaying())
         {
-            m_players.push_back(std::make_shared<Player>(player));
+            m_players.push_back(player);
         }
     }
 }
@@ -200,9 +200,9 @@ void Room::displayMembers() const
 nlohmann::json Room::getMembersJson() const
 {
     nlohmann::json members;
-    for(auto& member: m_members)
+    for(auto const& member: m_members)
     {
-        members.push_back(member.toJson());
+        members.push_back(member->toJson());
     }
     return members;
 }
