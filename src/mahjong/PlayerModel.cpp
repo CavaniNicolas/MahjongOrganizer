@@ -70,7 +70,13 @@ void QPlayer::setTable(int table)
     m_table = table;
 }
 
+// ****** PlayerModel ****** //
+
+// ****** class ****** //
+
 PlayerModel::PlayerModel(QObject* parent): QAbstractListModel(parent), m_orderPlayersBy(OrderPlayersBy::Level) {}
+
+// ****** manage QPlayers ****** //
 
 QList<QPlayer>::iterator PlayerModel::searchLastPlayerSameLevelIndex(const QPlayer& player)
 {
@@ -120,6 +126,38 @@ void PlayerModel::addPlayer(const QPlayer& player)
     //    endInsertRows();
     endResetModel();
 }
+
+// ****** slots ****** //
+
+void PlayerModel::newPlayerFormSaved(QString name, QString surname, QString level)
+{
+    if(name.isEmpty() || surname.isEmpty())
+    {
+        emit newPlayerFormError();
+    }
+    else
+    {
+        addPlayer(QPlayer(name, surname, level));
+        emit newPlayerFormAdded();
+    }
+    std::cout << "newPlayer : " << name.toStdString() << " " << surname.toStdString() << " " << level.toStdString()
+              << std::endl;
+}
+
+void PlayerModel::checkPlayer(int playerIndex, int state)
+{
+    m_players[playerIndex].setIsPlaying(state);
+    // std::cout << m_players[playerIndex].getName().toStdString() << " is playing : " << state << std::endl;
+}
+
+// ****** Setters ****** //
+
+void PlayerModel::setTableToQPlayerAtID(int table, int id)
+{
+    m_players[id].setTable(table);
+}
+
+// ****** QT override ****** //
 
 int PlayerModel::rowCount(const QModelIndex& parent) const
 {
@@ -187,30 +225,4 @@ QHash<int, QByteArray> PlayerModel::roleNames() const
     roles[IsPlayingRole] = "isPlaying";
     roles[TableRole] = "table";
     return roles;
-}
-
-void PlayerModel::newPlayerFormSaved(QString name, QString surname, QString level)
-{
-    if(name.isEmpty() || surname.isEmpty())
-    {
-        emit newPlayerFormError();
-    }
-    else
-    {
-        addPlayer(QPlayer(name, surname, level));
-        emit newPlayerFormAdded();
-    }
-    std::cout << "newPlayer : " << name.toStdString() << " " << surname.toStdString() << " " << level.toStdString()
-              << std::endl;
-}
-
-void PlayerModel::checkPlayer(int playerIndex, int state)
-{
-    m_players[playerIndex].setIsPlaying(state);
-    // std::cout << m_players[playerIndex].getName().toStdString() << " is playing : " << state << std::endl;
-}
-
-void PlayerModel::setTableToQPlayerAtID(int table, int id)
-{
-    m_players[id].setTable(table);
 }

@@ -11,12 +11,14 @@ class QPlayer
     QPlayer(const QString& name, const QString& surname, const QString& level, const int& table = 1);
     QPlayer(const QPlayer& player);
 
+    // Getters
     QString getName() const;
     QString getSurname() const;
     QString getLevel() const;
     bool getIsPlaying() const;
     int getTable() const;
 
+    // Setters
     void setName(QString name);
     void setSurname(QString surname);
     void setLevel(QString level);
@@ -54,37 +56,38 @@ class PlayerModel : public QAbstractListModel
         IsPlaying
     };
 
+    // class
     PlayerModel(QObject* parent = 0);
 
+    // manage QPlayers
     QList<QPlayer>::iterator searchLastPlayerSameLevelIndex(const QPlayer& player);
-
     void addPlayer(const QPlayer& player);
 
-    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
-    bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
-    // Qt::ItemFlags flags(const QModelIndex& index) const override;
+  public slots:
+    void newPlayerFormSaved(QString firstName, QString lastName, QString level);
+    void checkPlayer(int playerIndex, int state);
 
-    // getters and setters
+  signals:
+    void newPlayerFormError();
+    void newPlayerFormAdded();
+
+  public:
+    // Getters and Setters
     QList<QPlayer> getPlayers() const
     {
         return m_players;
     }
     void setTableToQPlayerAtID(int table, int id);
 
+    // QT override
+    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+    bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
+    // Qt::ItemFlags flags(const QModelIndex& index) const override;
   protected:
     QHash<int, QByteArray> roleNames() const override;
 
   private:
     QList<QPlayer> m_players;
     OrderPlayersBy m_orderPlayersBy;
-
-  signals:
-    void newPlayerFormError();
-    void newPlayerFormAdded();
-
-  public slots:
-    void newPlayerFormSaved(QString firstName, QString lastName, QString level);
-
-    void checkPlayer(int playerIndex, int state);
 };
