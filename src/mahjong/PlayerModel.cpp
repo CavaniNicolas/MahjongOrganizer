@@ -147,6 +147,21 @@ void PlayerModel::addPlayer(const QPlayer& player)
     endResetModel();
 }
 
+void PlayerModel::removeNonPlayingMembers()
+{
+    beginResetModel();
+
+    for(int i = m_players.size() - 1; i >= 0; --i)
+    {
+        if(m_players[i].getIsPlaying() == false)
+        {
+            m_players.removeAt(i);
+        }
+    }
+
+    endResetModel();
+}
+
 // ****** slots ****** //
 
 void PlayerModel::newPlayerFormSaved(QString name, QString surname, QString level)

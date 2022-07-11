@@ -64,6 +64,7 @@ class PlayerModel : public QAbstractListModel
     QList<QPlayer>::iterator searchLastPlayerSameLevelIndex(const QPlayer& player);
     QList<QPlayer>::iterator searchPlayerTableOrder(const QPlayer& player);
     void addPlayer(const QPlayer& player);
+    void removeNonPlayingMembers();
 
   public slots:
     void newPlayerFormSaved(QString firstName, QString lastName, QString level);

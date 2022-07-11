@@ -35,6 +35,9 @@ class MahjongApp : public QObject
   private:
     void fillModel();
     void addDefaultPlayersToModel();
+    void updatePlayers();
+
+    void updateQPlayers();
     void updateQPlayersTable();
 
     PlayerParser m_playerParser;

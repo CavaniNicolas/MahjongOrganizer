@@ -67,7 +67,43 @@ void MahjongApp::loadFile()
 
 void MahjongApp::setUpGame()
 {
+    updatePlayers();
     m_room.setUpGame();
+    updateQPlayers();
+}
+
+void MahjongApp::updatePlayers()
+{
+    std::vector<std::shared_ptr<Player>> players = m_room.getMembers();
+    QList<QPlayer> qPlayers = m_playerModel->getPlayers();
+
+    int j;
+    bool isFound;
+
+    for(int i = 0; i < qPlayers.count(); ++i)
+    {
+        // update IsPlaying on every player using info from associated qPlayer
+        if(qPlayers[i].getIsPlaying() == false)
+        {
+            j = 0;
+            isFound = false;
+            while(j < players.size() && !isFound)
+            {
+                if(players[j]->getName() == qPlayers[i].getName().toStdString() &&
+                   players[j]->getSurname() == qPlayers[i].getSurname().toStdString())
+                {
+                    players[j]->setIsPlaying(false);
+                    isFound = true;
+                }
+                j++;
+            }
+        }
+    }
+}
+
+void MahjongApp::updateQPlayers()
+{
+    m_playerModel->removeNonPlayingMembers();
     updateQPlayersTable();
 }
 
