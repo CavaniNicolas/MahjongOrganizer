@@ -162,6 +162,12 @@ void PlayerModel::removeNonPlayingMembers()
     endResetModel();
 }
 
+void PlayerModel::setPlayerIsPlaying(int playerIndex, bool state)
+{
+    m_players[playerIndex].setIsPlaying(state);
+    // std::cout << m_players[playerIndex].getName().toStdString() << " is playing : " << state << std::endl;
+}
+
 // ****** Setters ****** //
 
 void PlayerModel::setTableToQPlayerAtID(int table, int id)

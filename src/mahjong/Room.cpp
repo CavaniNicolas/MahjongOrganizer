@@ -121,6 +121,24 @@ void Room::removeMemberFromIndex(int id)
     }
 }
 
+std::shared_ptr<Player> Room::searchMemberByName(std::string name, std::string surname) const
+{
+    bool isFound = false;
+    int i = 0;
+    std::shared_ptr<Player> res = nullptr;
+
+    while(!isFound && i < m_players.size())
+    {
+        if(m_members[i]->getName() == name && m_members[i]->getSurname() == surname)
+        {
+            isFound = true;
+            res = m_players[i];
+        }
+        i++;
+    }
+    return res;
+}
+
 // ### Manage Games ###
 
 void Room::setUpGame()

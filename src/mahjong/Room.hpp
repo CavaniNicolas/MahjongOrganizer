@@ -23,6 +23,8 @@ class Room
     void removeMemberFromId(int id);
     void removeMemberFromIndex(int id);
 
+    std::shared_ptr<Player> searchMemberByName(std::string name, std::string surname) const;
+
     // Manage Games
     void setUpGame();
 

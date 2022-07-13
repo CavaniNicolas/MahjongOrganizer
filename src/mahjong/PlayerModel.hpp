@@ -65,6 +65,7 @@ class PlayerModel : public QAbstractListModel
     QList<QPlayer>::iterator searchPlayerTableOrder(const QPlayer& player);
     void addPlayer(const QPlayer& player);
     void removeNonPlayingMembers();
+    void setPlayerIsPlaying(int playerIndex, bool state);
 
   public:
     // Getters and Setters

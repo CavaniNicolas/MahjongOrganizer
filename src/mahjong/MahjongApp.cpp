@@ -86,8 +86,16 @@ void MahjongApp::newPlayerFormSaved(QString name, QString surname, QString level
 
 void MahjongApp::checkPlayer(int playerIndex, int state)
 {
-    // m_players[playerIndex].setIsPlaying(state); // do so for players and qplayers and remove update
-    // std::cout << m_players[playerIndex].getName().toStdString() << " is playing : " << state << std::endl;
+    // set isPlaying to state for the qPlayer (PlayerModel)
+    m_playerModel->setPlayerIsPlaying(playerIndex, state);
+
+    // set isPlaying to state for the player (Room)
+    std::string name = m_playerModel->getPlayers()[playerIndex].getName().toStdString();
+    std::string surname = m_playerModel->getPlayers()[playerIndex].getSurname().toStdString();
+    // later on, change this search using the playerID
+    std::shared_ptr<Player> member = m_room.searchMemberByName(name, surname);
+    if(member != nullptr)
+        member->setIsPlaying(state);
 }
 
 void MahjongApp::setUpGame()
