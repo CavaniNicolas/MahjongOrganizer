@@ -29,7 +29,7 @@ ApplicationWindow {
     }
 
     Connections {
-        target: playerModel
+        target: mahjongApp
         function onNewPlayerFormError() {
             dialogItems.formErrorDialog.open()
         }

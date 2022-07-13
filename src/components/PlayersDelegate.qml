@@ -77,7 +77,7 @@ Item {
             Layout.fillWidth: true
 
             checked: isPlaying
-            onCheckStateChanged: playerModel.checkPlayer(index, checkState)
+            onCheckStateChanged: mahjongApp.checkPlayer(index, checkState)
             //text: qsTr("Is Playing")
         }
 

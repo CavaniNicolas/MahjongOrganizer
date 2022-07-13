@@ -27,9 +27,14 @@ class MahjongApp : public QObject
   signals:
     void fileURLChanged();
 
+    void newPlayerFormError();
+    void newPlayerFormAdded();
+
   public slots:
     void useDefaultFile();
     void loadFile();
+    void newPlayerFormSaved(QString firstName, QString lastName, QString level);
+    void checkPlayer(int playerIndex, int state);
     void setUpGame();
 
   private:

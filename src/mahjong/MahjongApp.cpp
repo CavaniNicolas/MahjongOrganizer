@@ -50,6 +50,8 @@ void MahjongApp::setFileURL(const QString& fileURL)
     }
 }
 
+// ****** slots ****** //
+
 void MahjongApp::useDefaultFile()
 {
     setFileURL(QString::fromStdString("file:///" + std::string(RESOURCE_PATH) + "mahjong.json"));
@@ -63,6 +65,27 @@ void MahjongApp::loadFile()
     m_room.createMembersFromJson(members);
     // fill model with members from room
     fillModel();
+}
+
+void MahjongApp::newPlayerFormSaved(QString name, QString surname, QString level)
+{
+    if(name.isEmpty() || surname.isEmpty())
+    {
+        emit newPlayerFormError();
+    }
+    else
+    {
+        m_playerModel->addPlayer(QPlayer(name, surname, level));
+        emit newPlayerFormAdded();
+    }
+    std::cout << "newPlayer : " << name.toStdString() << " " << surname.toStdString() << " " << level.toStdString()
+              << std::endl;
+}
+
+void MahjongApp::checkPlayer(int playerIndex, int state)
+{
+    // m_players[playerIndex].setIsPlaying(state); // do so for players and qplayers and remove update
+    // std::cout << m_players[playerIndex].getName().toStdString() << " is playing : " << state << std::endl;
 }
 
 void MahjongApp::setUpGame()

@@ -66,14 +66,6 @@ class PlayerModel : public QAbstractListModel
     void addPlayer(const QPlayer& player);
     void removeNonPlayingMembers();
 
-  public slots:
-    void newPlayerFormSaved(QString firstName, QString lastName, QString level);
-    void checkPlayer(int playerIndex, int state);
-
-  signals:
-    void newPlayerFormError();
-    void newPlayerFormAdded();
-
   public:
     // Getters and Setters
     QList<QPlayer> getPlayers() const

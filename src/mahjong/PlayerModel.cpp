@@ -162,29 +162,6 @@ void PlayerModel::removeNonPlayingMembers()
     endResetModel();
 }
 
-// ****** slots ****** //
-
-void PlayerModel::newPlayerFormSaved(QString name, QString surname, QString level)
-{
-    if(name.isEmpty() || surname.isEmpty())
-    {
-        emit newPlayerFormError();
-    }
-    else
-    {
-        addPlayer(QPlayer(name, surname, level));
-        emit newPlayerFormAdded();
-    }
-    std::cout << "newPlayer : " << name.toStdString() << " " << surname.toStdString() << " " << level.toStdString()
-              << std::endl;
-}
-
-void PlayerModel::checkPlayer(int playerIndex, int state)
-{
-    m_players[playerIndex].setIsPlaying(state);
-    // std::cout << m_players[playerIndex].getName().toStdString() << " is playing : " << state << std::endl;
-}
-
 // ****** Setters ****** //
 
 void PlayerModel::setTableToQPlayerAtID(int table, int id)
