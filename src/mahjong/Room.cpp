@@ -127,12 +127,12 @@ std::shared_ptr<Player> Room::searchMemberByName(std::string name, std::string s
     int i = 0;
     std::shared_ptr<Player> res = nullptr;
 
-    while(!isFound && i < m_players.size())
+    while(!isFound && i < m_members.size())
     {
         if(m_members[i]->getName() == name && m_members[i]->getSurname() == surname)
         {
             isFound = true;
-            res = m_players[i];
+            res = m_members[i];
         }
         i++;
     }
