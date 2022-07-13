@@ -139,6 +139,11 @@ std::shared_ptr<Player> Room::searchMemberByName(std::string name, std::string s
     return res;
 }
 
+void Room::resetPlayers()
+{
+    m_players.clear();
+}
+
 // ### Manage Games ###
 
 void Room::setUpGame()

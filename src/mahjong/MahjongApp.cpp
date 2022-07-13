@@ -98,6 +98,26 @@ void MahjongApp::checkPlayer(int playerIndex, int state)
         member->setIsPlaying(state);
 }
 
+// update model when we come back to MahjongApp page
+void MahjongApp::setUpMahjongAppPage()
+{
+    // empty m_players
+    m_room.resetPlayers();
+
+    // add non playing members back to qPlayers
+    foreach(auto const& member, m_room.getMembers())
+    {
+        if(member->getIsPlaying() == false)
+        {
+            m_playerModel->addPlayer(QPlayer(QString::fromStdString(member->getName()),
+                                             QString::fromStdString(member->getSurname()),
+                                             QString::fromStdString(getStringFromLevel(member->getLevel())),
+                                             member->getIsPlaying()));
+        }
+    }
+}
+
+// set up players from room and qPlayers from model when starting a game
 void MahjongApp::setUpGame()
 {
     updatePlayers();
@@ -106,6 +126,13 @@ void MahjongApp::setUpGame()
 }
 
 void MahjongApp::updatePlayers()
+{
+    // update players isPlaying
+    // should remove this later on as isPlaying variable is supposed to be already updated on the spot
+    updatePlayersIsPlaying();
+}
+
+void MahjongApp::updatePlayersIsPlaying()
 {
     std::vector<std::shared_ptr<Player>> players = m_room.getMembers();
     QList<QPlayer> qPlayers = m_playerModel->getPlayers();

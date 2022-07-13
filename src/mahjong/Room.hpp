@@ -24,6 +24,7 @@ class Room
     void removeMemberFromIndex(int id);
 
     std::shared_ptr<Player> searchMemberByName(std::string name, std::string surname) const;
+    void resetPlayers();
 
     // Manage Games
     void setUpGame();
