@@ -16,6 +16,8 @@ MahjongApp::MahjongApp(int& argc, char** argv):
     using json = nlohmann::json;
 
     QGuiApplication app(argc, argv);
+    app.setOrganizationName("somename");
+    app.setOrganizationDomain("somename");
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/components/main.qml")));

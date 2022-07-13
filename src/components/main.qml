@@ -30,6 +30,7 @@ ApplicationWindow {
 
     Connections {
         target: mahjongApp
+        ignoreUnknownSignals: true // https://stackoverflow.com/questions/68051317/avoid-qml-error-this-is-probably-intended-to-be-a-signal-handler-but-no-signal
         function onNewPlayerFormError() {
             dialogItems.formErrorDialog.open()
         }

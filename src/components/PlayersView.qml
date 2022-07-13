@@ -1,10 +1,14 @@
 import QtQuick 2.0
 
 ListView {
+    id: playersView
     width: 200; height: 250
 
     model: playerModel
-    delegate: PlayersDelegate {}
+    delegate: PlayersDelegate {
+        width: playersView.width
+        height: 50
+    }
 
 
     Component {
