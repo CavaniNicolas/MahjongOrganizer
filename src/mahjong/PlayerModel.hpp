@@ -8,7 +8,11 @@
 class QPlayer
 {
   public:
-    QPlayer(const QString& name, const QString& surname, const QString& level, const int& table = 1);
+    QPlayer(const QString& name,
+            const QString& surname,
+            const QString& level,
+            const bool& isPlaying = true,
+            const int& table = 1);
     QPlayer(const QPlayer& player);
 
     // Getters

@@ -3,8 +3,9 @@
 
 #include "mahjong/PlayerModel.hpp"
 
-QPlayer::QPlayer(const QString& name, const QString& surname, const QString& level, const int& table):
-  m_name(name), m_surname(surname), m_level(level), m_isPlaying(true), m_table(table)
+QPlayer::QPlayer(
+  const QString& name, const QString& surname, const QString& level, const bool& isPlaying, const int& table):
+  m_name(name), m_surname(surname), m_level(level), m_isPlaying(isPlaying), m_table(table)
 {
 }
 
