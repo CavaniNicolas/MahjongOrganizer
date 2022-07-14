@@ -3,9 +3,22 @@
 
 #include "mahjong/PlayerModel.hpp"
 
-QPlayer::QPlayer(const QString& name, const QString& surname, const QString& level):
-  m_name(name), m_surname(surname), m_level(level), m_isPlaying(true)
+QPlayer::QPlayer(
+  const QString& name, const QString& surname, const QString& level, const bool& isPlaying, const int& table):
+  m_name(name), m_surname(surname), m_level(level), m_isPlaying(isPlaying), m_table(table)
 {
+}
+
+QPlayer::QPlayer(const QPlayer& player)
+{
+    if(this != &player)
+    {
+        m_name = player.m_name;
+        m_surname = player.m_surname;
+        m_level = player.m_level;
+        m_isPlaying = player.m_isPlaying;
+        m_table = player.m_table;
+    }
 }
 
 QString QPlayer::getName() const
@@ -28,6 +41,11 @@ bool QPlayer::getIsPlaying() const
     return m_isPlaying;
 }
 
+int QPlayer::getTable() const
+{
+    return m_table;
+}
+
 void QPlayer::setName(QString name)
 {
     m_name = name;
@@ -48,7 +66,18 @@ void QPlayer::setIsPlaying(bool isplaying)
     m_isPlaying = isplaying;
 }
 
+void QPlayer::setTable(int table)
+{
+    m_table = table;
+}
+
+// ****** PlayerModel ****** //
+
+// ****** class ****** //
+
 PlayerModel::PlayerModel(QObject* parent): QAbstractListModel(parent), m_orderPlayersBy(OrderPlayersBy::Level) {}
+
+// ****** manage QPlayers ****** //
 
 QList<QPlayer>::iterator PlayerModel::searchLastPlayerSameLevelIndex(const QPlayer& player)
 {
@@ -58,6 +87,26 @@ QList<QPlayer>::iterator PlayerModel::searchLastPlayerSameLevelIndex(const QPlay
     while(!isFound && iterator != m_players.end())
     {
         if(iterator->getLevel() == player.getLevel())
+        {
+            isFound = true;
+        }
+        else
+        {
+            iterator++;
+        }
+    }
+    return iterator;
+}
+
+QList<QPlayer>::iterator PlayerModel::searchPlayerTableOrder(const QPlayer& player)
+{
+    QList<QPlayer>::iterator iterator = m_players.begin();
+    bool isFound = false;
+    int table = player.getTable();
+
+    while(!isFound && iterator != m_players.end())
+    {
+        if(iterator->getTable() >= table)
         {
             isFound = true;
         }
@@ -99,6 +148,41 @@ void PlayerModel::addPlayer(const QPlayer& player)
     endResetModel();
 }
 
+void PlayerModel::removeNonPlayingMembers()
+{
+    beginResetModel();
+
+    for(int i = m_players.size() - 1; i >= 0; --i)
+    {
+        if(m_players[i].getIsPlaying() == false)
+        {
+            m_players.removeAt(i);
+        }
+    }
+
+    endResetModel();
+}
+
+void PlayerModel::setPlayerIsPlaying(int playerIndex, bool state)
+{
+    m_players[playerIndex].setIsPlaying(state);
+    // std::cout << m_players[playerIndex].getName().toStdString() << " is playing : " << state << std::endl;
+}
+
+// ****** Setters ****** //
+
+void PlayerModel::setTableToQPlayerAtID(int table, int id)
+{
+    m_players[id].setTable(table);
+}
+
+void PlayerModel::setOrderPlayersBy(OrderPlayersBy orderPlayersBy)
+{
+    m_orderPlayersBy = orderPlayersBy;
+}
+
+// ****** QT override ****** //
+
 int PlayerModel::rowCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent);
@@ -121,6 +205,8 @@ QVariant PlayerModel::data(const QModelIndex& index, int role) const
         return player.getLevel();
     else if(role == IsPlayingRole)
         return player.getIsPlaying();
+    else if(role == TableRole)
+        return player.getTable();
     return QVariant();
 }
 
@@ -137,6 +223,7 @@ bool PlayerModel::setData(const QModelIndex& index, const QVariant& value, int r
             case SurnameRole: player.setSurname(value.toString()); break;
             case LevelRole: player.setLevel(value.toString()); break;
             case IsPlayingRole: player.setIsPlaying(value.toInt()); break;
+            case TableRole: player.setTable(value.toInt()); break;
             default: return false;
         }
 
@@ -160,26 +247,48 @@ QHash<int, QByteArray> PlayerModel::roleNames() const
     roles[SurnameRole] = "surname";
     roles[LevelRole] = "level";
     roles[IsPlayingRole] = "isPlaying";
+    roles[TableRole] = "table";
     return roles;
 }
 
-void PlayerModel::newPlayerFormSaved(QString name, QString surname, QString level)
+void PlayerModel::sort(int column, Qt::SortOrder order)
 {
-    if(name.isEmpty() || surname.isEmpty())
-    {
-        emit newPlayerFormError();
-    }
-    else
-    {
-        addPlayer(QPlayer(name, surname, level));
-        emit newPlayerFormAdded();
-    }
-    std::cout << "newPlayer : " << name.toStdString() << " " << surname.toStdString() << " " << level.toStdString()
-              << std::endl;
-}
+    QList<QPlayer> playersCopy = m_players;
+    m_players.erase(m_players.begin() + 1, m_players.end());
 
-void PlayerModel::checkPlayer(int playerIndex, int state)
-{
-    m_players[playerIndex].setIsPlaying(state);
-    // std::cout << m_players[playerIndex].getName().toStdString() << " is playing : " << state << std::endl;
+    beginResetModel();
+
+    switch(m_orderPlayersBy)
+    {
+        case OrderPlayersBy::Table:
+
+            for(int i = 1; i < playersCopy.count(); ++i)
+            {
+                QList<QPlayer>::iterator iteratorBefore = searchPlayerTableOrder(playersCopy[i]);
+
+                //                if(iteratorBefore != m_players.end())
+                //                {
+                //                    std::cout << "player BEFORE : " << iteratorBefore->getName().toStdString()
+                //                              << iteratorBefore->getSurname().toStdString() << std::endl;
+                //                }
+
+                m_players.insert(iteratorBefore, playersCopy[i]);
+            }
+
+            break;
+
+        case OrderPlayersBy::Level:
+
+            for(int i = 1; i < playersCopy.count(); ++i)
+            {
+                // use function pointers later on
+                QList<QPlayer>::iterator iteratorBefore = searchLastPlayerSameLevelIndex(playersCopy[i]);
+
+                m_players.insert(iteratorBefore, playersCopy[i]);
+            }
+            break;
+
+        default: break;
+    }
+    endResetModel();
 }

@@ -174,7 +174,7 @@ ApplicationWindow {
                 text: qsTr("Add Player")
                 onClicked: {
                     console.log("Button 'Add Player' clicked")
-                    playerModel.newPlayerFormSaved(firstName.text, lastName.text, level.currentValue)
+                    mahjongApp.newPlayerFormSaved(firstName.text, lastName.text, level.currentValue)
                     windowNewPlayerForm.visible = false
                 }
             }

@@ -2,6 +2,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <memory>
 
 #include "mahjong/MahjongApp.hpp"
 
@@ -15,6 +16,8 @@ MahjongApp::MahjongApp(int& argc, char** argv):
     using json = nlohmann::json;
 
     QGuiApplication app(argc, argv);
+    app.setOrganizationName("somename");
+    app.setOrganizationDomain("somename");
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/components/main.qml")));
@@ -49,9 +52,11 @@ void MahjongApp::setFileURL(const QString& fileURL)
     }
 }
 
+// ****** slots ****** //
+
 void MahjongApp::useDefaultFile()
 {
-    setFileURL(QString::fromStdString(std::string(RESOURCE_PATH) + "mahjong.json"));
+    setFileURL(QString::fromStdString("file:///" + std::string(RESOURCE_PATH) + "mahjong.json"));
 }
 
 void MahjongApp::loadFile()
@@ -64,13 +69,153 @@ void MahjongApp::loadFile()
     fillModel();
 }
 
+void MahjongApp::newPlayerFormSaved(QString name, QString surname, QString level)
+{
+    if(name.isEmpty() || surname.isEmpty())
+    {
+        emit newPlayerFormError();
+    }
+    else
+    {
+        m_playerModel->addPlayer(QPlayer(name, surname, level));
+        m_room.addNewMember(std::make_shared<Player>(name.toStdString(), surname.toStdString(), level.toStdString()));
+        emit newPlayerFormAdded();
+    }
+    std::cout << "newPlayer : " << name.toStdString() << " " << surname.toStdString() << " " << level.toStdString()
+              << std::endl;
+}
+
+void MahjongApp::checkPlayer(int playerIndex, int state)
+{
+    // set isPlaying to state for the qPlayer (PlayerModel)
+    m_playerModel->setPlayerIsPlaying(playerIndex, state);
+
+    // set isPlaying to state for the player (Room)
+    std::string name = m_playerModel->getPlayers()[playerIndex].getName().toStdString();
+    std::string surname = m_playerModel->getPlayers()[playerIndex].getSurname().toStdString();
+    // later on, change this search using the playerID
+    std::shared_ptr<Player> member = m_room.searchMemberByName(name, surname);
+    if(member != nullptr)
+        member->setIsPlaying(state);
+}
+
+// update model when we come back to MahjongApp page
+void MahjongApp::setUpMahjongAppPage()
+{
+    // empty m_players
+    m_room.resetPlayers();
+
+    m_playerModel->setOrderPlayersBy(PlayerModel::OrderPlayersBy::Level);
+    m_playerModel->sort();
+
+    // add non playing members back to qPlayers
+    foreach(auto const& member, m_room.getMembers())
+    {
+        if(member->getIsPlaying() == false)
+        {
+            m_playerModel->addPlayer(QPlayer(QString::fromStdString(member->getName()),
+                                             QString::fromStdString(member->getSurname()),
+                                             QString::fromStdString(getStringFromLevel(member->getLevel())),
+                                             member->getIsPlaying()));
+        }
+    }
+}
+
+// set up players from room and qPlayers from model when starting a game
+void MahjongApp::setUpGame()
+{
+    updatePlayers();
+    m_room.setUpGame();
+    updateQPlayers();
+}
+
+void MahjongApp::updatePlayers()
+{
+    // update players isPlaying
+    // should remove this later on as isPlaying variable is supposed to be already updated on the spot
+    updatePlayersIsPlaying();
+}
+
+void MahjongApp::updatePlayersIsPlaying()
+{
+    std::vector<std::shared_ptr<Player>> players = m_room.getMembers();
+    QList<QPlayer> qPlayers = m_playerModel->getPlayers();
+
+    int j;
+    bool isFound;
+
+    for(int i = 0; i < qPlayers.count(); ++i)
+    {
+        // update IsPlaying on every player using info from associated qPlayer
+        if(qPlayers[i].getIsPlaying() == false)
+        {
+            j = 0;
+            isFound = false;
+            while(j < players.size() && !isFound)
+            {
+                if(players[j]->getName() == qPlayers[i].getName().toStdString() &&
+                   players[j]->getSurname() == qPlayers[i].getSurname().toStdString())
+                {
+                    players[j]->setIsPlaying(false);
+                    isFound = true;
+                }
+                j++;
+            }
+        }
+    }
+}
+
+void MahjongApp::updateQPlayers()
+{
+    m_playerModel->removeNonPlayingMembers();
+    updateQPlayersTable();
+}
+
+void MahjongApp::updateQPlayersTable()
+{
+    bool playerFound = false;
+    int playerId;
+    std::shared_ptr<Player> player;
+    std::vector<std::shared_ptr<Player>> players = m_room.getPlayers();
+
+    QList<QPlayer> qPlayers = m_playerModel->getPlayers();
+
+    for(int i = 0; i < qPlayers.size(); ++i)
+    {
+        QPlayer qPlayer(qPlayers[i]);
+
+        playerId = 0;
+        while(!playerFound && playerId < players.size())
+        {
+            player = players[playerId];
+            if(qPlayer.getName().toStdString() == player->getName() &&
+               qPlayer.getSurname().toStdString() == player->getSurname())
+            {
+                // cannot do this as qPlayer and qPlayers are copied objects
+                // qPlayer.setTable(player->getTable()); // qPlayers[i].setTable(player->getTable());
+                m_playerModel->setTableToQPlayerAtID(player->getTable(), i);
+
+                playerFound = true;
+            }
+            else
+            {
+                playerId++;
+            }
+        }
+        playerFound = false;
+    }
+
+    m_playerModel->setOrderPlayersBy(PlayerModel::OrderPlayersBy::Table);
+    m_playerModel->sort();
+}
+
 void MahjongApp::fillModel()
 {
     foreach(auto const& member, m_room.getMembers())
     {
-        m_playerModel->addPlayer(QPlayer(QString::fromStdString(member.getName()),
-                                         QString::fromStdString(member.getSurname()),
-                                         QString::fromStdString(getStringFromLevel(member.getLevel()))));
+        m_playerModel->addPlayer(QPlayer(QString::fromStdString(member->getName()),
+                                         QString::fromStdString(member->getSurname()),
+                                         QString::fromStdString(getStringFromLevel(member->getLevel()))));
     }
 }
 

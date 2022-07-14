@@ -13,7 +13,7 @@ Item {
         width: parent.width
         height: 30
 
-        color: "orange"
+        color: "yellow"
     }
 
     RowLayout {
@@ -68,34 +68,18 @@ Item {
 
         Item {
 //            id: spacer
-            width: 10
+            width: 30
         }
 
-        CheckBox {
-            id: isPlayerHereCheckBox
+        Text {
+            id: playerTableText
 
+            Layout.preferredWidth: parent.width / 6
             Layout.fillWidth: true
 
-            checked: isPlaying
-            onCheckStateChanged: {
-                mahjongApp.checkPlayer(index, checkState)
-            }
-            //text: qsTr("Is Playing")
-        }
-
-        Item {
-//            id: spacer
-            width: 3
-        }
-
-        Button {
-            id: editPlayerButton
-
-            Layout.preferredWidth: 28
-            Layout.preferredHeight: 28
-            Layout.fillWidth: true
-
-            text: "edit"
+            font.pixelSize: fontSize
+            text: table
+            font.bold: true
         }
     }
 }

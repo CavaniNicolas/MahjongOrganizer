@@ -3,7 +3,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.1
 
 Item {
-    id: mahjongApp
+    id: mahjongAppPage
 
     property int fontSize: 20
 
@@ -145,6 +145,11 @@ Item {
 
                         text: qsTr("Go with these players")
                         font.pixelSize: fontSize
+
+                        onClicked: {
+                            mahjongApp.setUpGame()
+                            mainLoader.source = "TablesPage.qml"
+                        }
                     }
 
                 }

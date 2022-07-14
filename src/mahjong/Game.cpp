@@ -36,13 +36,19 @@ void Game::fillTables(std::vector<std::shared_ptr<Player>> beginner,
 void Game::fillTablesWithPlayers(std::vector<std::shared_ptr<Player>> players)
 {
     int numTables = m_tables.size();
+    int nbTable = 0;
+    int nbPlayerInTable = 0;
 
     for(int i = 0; i < players.size(); ++i)
     {
-        std::cout << m_fillPlayerAtId << " " << m_fillPlayerAtId % numTables << " " << m_fillPlayerAtId / numTables
-                  << " " << *players[i] << std::endl;
+        nbTable = m_fillPlayerAtId % numTables;
+        nbPlayerInTable = m_fillPlayerAtId / numTables;
 
-        m_tables[m_fillPlayerAtId % numTables][m_fillPlayerAtId / numTables] = players[i];
+        std::cout << m_fillPlayerAtId << " " << nbTable << " " << nbPlayerInTable << " " << *players[i] << std::endl;
+
+        m_tables[nbTable][nbPlayerInTable] = players[i];
+        players[i]->setTable(nbTable);
+
         m_fillPlayerAtId++;
     }
 }

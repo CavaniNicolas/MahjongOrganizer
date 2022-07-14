@@ -31,7 +31,8 @@ Level getLevelFromStr(std::string level)
     return Level::Competitive;
 }
 
-Player::Player(std::string name, std::string surname, Level level): m_name(name), m_surname(surname), m_level(level)
+Player::Player(std::string name, std::string surname, Level level):
+  m_name(name), m_surname(surname), m_level(level), m_table(1)
 {
     m_playerNum++;
     m_playerID = m_playerNum;
@@ -52,7 +53,10 @@ Player::Player(nlohmann::json playerJson):
 {
 }
 
-Player::Player(Player const& player): Player::Player(player.getName(), player.getSurname(), player.getLevel()) {}
+Player::Player(Player const& player): Player::Player(player.getName(), player.getSurname(), player.getLevel())
+{
+    m_table = player.getTable();
+}
 
 Player& Player::operator=(Player const& player)
 {
@@ -110,9 +114,19 @@ bool Player::getIsPlaying() const
     return m_isPlaying;
 }
 
+int Player::getTable() const
+{
+    return m_table;
+}
+
 void Player::setIsPlaying(bool value)
 {
     m_isPlaying = value;
+}
+
+void Player::setTable(int table)
+{
+    m_table = table;
 }
 
 nlohmann::json Player::toJson() const
