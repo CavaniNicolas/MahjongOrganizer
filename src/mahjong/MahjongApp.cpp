@@ -104,6 +104,9 @@ void MahjongApp::setUpMahjongAppPage()
     // empty m_players
     m_room.resetPlayers();
 
+    m_playerModel->setOrderPlayersBy(PlayerModel::OrderPlayersBy::Level);
+    m_playerModel->sort();
+
     // add non playing members back to qPlayers
     foreach(auto const& member, m_room.getMembers())
     {
@@ -202,7 +205,7 @@ void MahjongApp::updateQPlayersTable()
     }
 
     m_playerModel->setOrderPlayersBy(PlayerModel::OrderPlayersBy::Table);
-    m_playerModel->sort(0);
+    m_playerModel->sort();
 }
 
 void MahjongApp::fillModel()

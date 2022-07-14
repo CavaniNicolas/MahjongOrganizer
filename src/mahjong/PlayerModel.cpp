@@ -276,6 +276,18 @@ void PlayerModel::sort(int column, Qt::SortOrder order)
             }
 
             break;
+
+        case OrderPlayersBy::Level:
+
+            for(int i = 1; i < playersCopy.count(); ++i)
+            {
+                // use function pointers later on
+                QList<QPlayer>::iterator iteratorBefore = searchLastPlayerSameLevelIndex(playersCopy[i]);
+
+                m_players.insert(iteratorBefore, playersCopy[i]);
+            }
+            break;
+
         default: break;
     }
     endResetModel();
