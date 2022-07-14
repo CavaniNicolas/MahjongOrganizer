@@ -78,6 +78,7 @@ void MahjongApp::newPlayerFormSaved(QString name, QString surname, QString level
     else
     {
         m_playerModel->addPlayer(QPlayer(name, surname, level));
+        m_room.addNewMember(std::make_shared<Player>(name.toStdString(), surname.toStdString(), level.toStdString()));
         emit newPlayerFormAdded();
     }
     std::cout << "newPlayer : " << name.toStdString() << " " << surname.toStdString() << " " << level.toStdString()
