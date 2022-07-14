@@ -43,5 +43,10 @@
         "level": "Competitive",
         "name": "neuf",
         "surname": "neuf"
+    },
+    {
+        "level": "Competitive",
+        "name": "dix",
+        "surname": "dix"
     }
 ]
