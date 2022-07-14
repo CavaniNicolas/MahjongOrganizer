@@ -5,9 +5,27 @@
 
 #include "mahjong/Room.hpp"
 
-Room::Room(nlohmann::json members): m_nbOfMembers(members.size()), m_numGame(1)
+Room::Room(): m_nbOfMembers(0), m_numGame(1) {}
+
+Room::Room(nlohmann::json members): Room::Room()
 {
     createMembersFromJson(members);
+}
+
+Room::Room(const Room& room)
+{
+    if(this != &room)
+    {
+        m_nbOfMembers = room.m_nbOfMembers;
+        m_nbTableOf4 = room.m_nbTableOf4;
+        m_nbTableOf3 = room.m_nbTableOf3;
+
+        m_members = room.m_members;
+        m_players = room.m_players;
+
+        m_numGame = room.m_numGame;
+        m_games = room.m_games;
+    }
 }
 
 // ### Manage Players ###
@@ -18,6 +36,7 @@ void Room::createMembersFromJson(nlohmann::json members)
     {
         m_members.push_back(Player(member));
     }
+    m_nbOfMembers = m_members.size();
 }
 
 void Room::determineNumberTables(int nbPlayers)

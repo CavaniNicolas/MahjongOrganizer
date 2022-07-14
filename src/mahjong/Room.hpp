@@ -10,10 +10,14 @@
 class Room
 {
   public:
+    Room();
     Room(nlohmann::json members);
+    Room(const Room& room);
     ~Room() = default;
 
     // Manage Members
+    void createMembersFromJson(nlohmann::json members);
+    // Manage Members OLD
     void addNewMember(Player member);
     std::vector<Player>::iterator searchMemberFromId(int id);
     void removeMemberFromId(int id);
@@ -29,6 +33,10 @@ class Room
 
     // Getters
     nlohmann::json getMembersJson() const;
+    std::vector<Player> getMembers() const
+    {
+        return m_members;
+    }
     int getNbOfMembers() const
     {
         return m_nbOfMembers;
@@ -44,7 +52,6 @@ class Room
 
   private:
     // Manage Players
-    void createMembersFromJson(nlohmann::json members);
 
     // Manage Games
     void collectPlayers();

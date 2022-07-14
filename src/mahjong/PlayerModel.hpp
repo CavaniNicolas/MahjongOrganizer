@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include <QAbstractListModel>
 #include <QList>
 #include <QStringList>
@@ -11,15 +13,18 @@ class QPlayer
     QString getName() const;
     QString getSurname() const;
     QString getLevel() const;
+    bool getIsPlaying() const;
 
     void setName(QString name);
     void setSurname(QString surname);
     void setLevel(QString level);
+    void setIsPlaying(bool isplaying);
 
   private:
     QString m_name;
     QString m_surname;
     QString m_level;
+    bool m_isPlaying;
 };
 
 class PlayerModel : public QAbstractListModel
@@ -31,7 +36,8 @@ class PlayerModel : public QAbstractListModel
     {
         NameRole = Qt::UserRole + 1,
         SurnameRole,
-        LevelRole
+        LevelRole,
+        IsPlayingRole
     };
 
     enum OrderPlayersBy
@@ -40,7 +46,7 @@ class PlayerModel : public QAbstractListModel
         Level,
         Name,
         Surname,
-        Presence
+        IsPlaying
     };
 
     PlayerModel(QObject* parent = 0);
@@ -67,4 +73,6 @@ class PlayerModel : public QAbstractListModel
 
   public slots:
     void newPlayerFormSaved(QString firstName, QString lastName, QString level);
+
+    void checkPlayer(int playerIndex, int state);
 };

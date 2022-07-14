@@ -2,7 +2,6 @@ import QtQuick 2.0
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.1
 
-
 Item {
     width: parent.width
     height: 50
@@ -77,7 +76,9 @@ Item {
 
             Layout.fillWidth: true
 
-//            text: qsTr("Check Box")
+            checked: isPlaying
+            onCheckStateChanged: playerModel.checkPlayer(index, checkState)
+            //text: qsTr("Is Playing")
         }
 
         Item {

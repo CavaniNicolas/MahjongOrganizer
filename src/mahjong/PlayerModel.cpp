@@ -4,7 +4,7 @@
 #include "mahjong/PlayerModel.hpp"
 
 QPlayer::QPlayer(const QString& name, const QString& surname, const QString& level):
-  m_name(name), m_surname(surname), m_level(level)
+  m_name(name), m_surname(surname), m_level(level), m_isPlaying(true)
 {
 }
 
@@ -23,6 +23,11 @@ QString QPlayer::getLevel() const
     return m_level;
 }
 
+bool QPlayer::getIsPlaying() const
+{
+    return m_isPlaying;
+}
+
 void QPlayer::setName(QString name)
 {
     m_name = name;
@@ -36,6 +41,11 @@ void QPlayer::setSurname(QString surname)
 void QPlayer::setLevel(QString level)
 {
     m_level = level;
+}
+
+void QPlayer::setIsPlaying(bool isplaying)
+{
+    m_isPlaying = isplaying;
 }
 
 PlayerModel::PlayerModel(QObject* parent): QAbstractListModel(parent), m_orderPlayersBy(OrderPlayersBy::Level) {}
@@ -109,6 +119,8 @@ QVariant PlayerModel::data(const QModelIndex& index, int role) const
         return player.getSurname();
     else if(role == LevelRole)
         return player.getLevel();
+    else if(role == IsPlayingRole)
+        return player.getIsPlaying();
     return QVariant();
 }
 
@@ -124,6 +136,7 @@ bool PlayerModel::setData(const QModelIndex& index, const QVariant& value, int r
             case NameRole: player.setName(value.toString()); break;
             case SurnameRole: player.setSurname(value.toString()); break;
             case LevelRole: player.setLevel(value.toString()); break;
+            case IsPlayingRole: player.setIsPlaying(value.toInt()); break;
             default: return false;
         }
 
@@ -146,6 +159,7 @@ QHash<int, QByteArray> PlayerModel::roleNames() const
     roles[NameRole] = "name";
     roles[SurnameRole] = "surname";
     roles[LevelRole] = "level";
+    roles[IsPlayingRole] = "isPlaying";
     return roles;
 }
 
@@ -162,4 +176,10 @@ void PlayerModel::newPlayerFormSaved(QString name, QString surname, QString leve
     }
     std::cout << "newPlayer : " << name.toStdString() << " " << surname.toStdString() << " " << level.toStdString()
               << std::endl;
+}
+
+void PlayerModel::checkPlayer(int playerIndex, int state)
+{
+    m_players[playerIndex].setIsPlaying(state);
+    // std::cout << m_players[playerIndex].getName().toStdString() << " is playing : " << state << std::endl;
 }
