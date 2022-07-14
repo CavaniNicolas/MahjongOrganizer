@@ -6,6 +6,7 @@ Item {
 
     property alias formErrorDialog: formErrorDialog
     property alias unsavedChangesDialog: unsavedChangesDialog
+    property alias saveMembersConfirmationDialog: saveMembersConfirmationDialog
     property int fontSize: 16
 
     Dialog {
@@ -47,6 +48,28 @@ The new player was not added."
             text: "You have unsaved changes, are you sure you want to quit ?"
         }
 
+    }
+
+    Dialog {
+        id: saveMembersConfirmationDialog
+        title: qsTr("Confirm Save")
+        anchors.centerIn: parent
+        font.pixelSize: fontSize
+
+        modal: true
+        standardButtons: Dialog.Ok | Dialog.Cancel
+
+        property alias text: textLabel3.text
+
+        onAccepted: {
+            mahjongApp.saveMembersInFile()
+            window.canClose = true
+        }
+
+        Label {
+            id: textLabel3
+            text: "You are about to save members, are you sure ?"
+        }
     }
 
 }

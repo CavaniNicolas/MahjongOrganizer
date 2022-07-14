@@ -15,6 +15,8 @@ ApplicationWindow {
     minimumWidth: width
     minimumHeight: height
 
+    property alias dialogItems: dialogItems
+
     property bool canClose: true
     onClosing: {
         close.accepted = canClose
