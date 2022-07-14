@@ -61,7 +61,7 @@ Item {
                         anchors.centerIn: parent
 
                         font.pixelSize: fontSize
-                        model: [ "all together", "3 level groups", "Beginner + Leisure", "Leisure + Competitive" ]
+                        model: [ "all together", "3 level groups", "Beginner + Leisure // Competitive", "Beginner // Leisure + Competitive" ]
 
                         delegate: ItemDelegate {
                             width: comboBox1.width
