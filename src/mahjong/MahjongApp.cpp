@@ -85,6 +85,11 @@ void MahjongApp::newPlayerFormSaved(QString name, QString surname, QString level
               << std::endl;
 }
 
+void MahjongApp::saveMembersInFile() const
+{
+    m_playerParser.writePlayersInFile(m_room.getMembersJson());
+}
+
 void MahjongApp::checkPlayer(int playerIndex, int state)
 {
     // set isPlaying to state for the qPlayer (PlayerModel)

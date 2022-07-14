@@ -10,8 +10,8 @@ class PlayerParser
     PlayerParser(std::string const filename);
     ~PlayerParser() = default;
 
-    nlohmann::json readPlayersFromFile();
-    void writePlayersInFile(nlohmann::json players);
+    nlohmann::json readPlayersFromFile() const;
+    void writePlayersInFile(nlohmann::json players) const;
 
     void setFilename(std::string filename)
     {

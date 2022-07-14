@@ -34,6 +34,7 @@ class MahjongApp : public QObject
     void useDefaultFile();
     void loadFile();
     void newPlayerFormSaved(QString firstName, QString lastName, QString level);
+    void saveMembersInFile() const;
     void checkPlayer(int playerIndex, int state);
     void setUpMahjongAppPage();
     void setUpGame();

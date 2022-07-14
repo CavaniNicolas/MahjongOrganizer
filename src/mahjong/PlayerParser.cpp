@@ -8,7 +8,7 @@
 
 PlayerParser::PlayerParser(std::string const filename): m_filename(filename) {}
 
-nlohmann::json PlayerParser::readPlayersFromFile()
+nlohmann::json PlayerParser::readPlayersFromFile() const
 {
     using json = nlohmann::json;
     json players;
@@ -28,7 +28,7 @@ nlohmann::json PlayerParser::readPlayersFromFile()
     return players;
 }
 
-void PlayerParser::writePlayersInFile(nlohmann::json players)
+void PlayerParser::writePlayersInFile(nlohmann::json players) const
 {
     std::ofstream file(m_filename);
 

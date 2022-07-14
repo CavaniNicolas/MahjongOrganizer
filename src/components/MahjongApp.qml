@@ -127,6 +127,7 @@ Item {
                         enabled: !window.canClose
 
                         onClicked: {
+                            mahjongApp.saveMembersInFile()
                             window.canClose = true
                         }
                     }
