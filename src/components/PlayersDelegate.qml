@@ -95,6 +95,8 @@ Item {
             Layout.preferredHeight: 28
             Layout.fillWidth: true
 
+            enabled: false
+
             text: "edit"
         }
     }

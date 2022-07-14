@@ -46,6 +46,8 @@ Item {
                         width: parent.width * 2 / 3
                         anchors.centerIn: parent
 
+                        enabled: false
+
                         font.pixelSize: fontSize
                         model: [ "1h", "1h30", "2h" ]
                     }
@@ -59,6 +61,8 @@ Item {
                         id: comboBox1
                         width: parent.width * 2 / 3
                         anchors.centerIn: parent
+
+                        enabled: false
 
                         font.pixelSize: fontSize
                         model: [ "all together", "3 level groups", "Beginner + Leisure // Competitive", "Beginner // Leisure + Competitive" ]
